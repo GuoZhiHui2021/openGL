@@ -1,7 +1,7 @@
 #pragma once
-#include "Shader.h"
-#include "Singleton.h"
-#include "ShaderFactory.h"
+#include "render/Shader.h"
+#include "common/Singleton.h"
+#include "render/ShaderFactory.h"
 #include <string>
 #include <unordered_map>
 namespace _Shader

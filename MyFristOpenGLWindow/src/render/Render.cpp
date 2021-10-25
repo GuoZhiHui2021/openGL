@@ -1,7 +1,7 @@
-#include "Render.h"
-#include "VertexShader.h"
-#include "FragmentShader.h"
-#include "ShaderManager.h"
+#include "render/Render.h"
+#include "render/VertexShader.h"
+#include "render/FragmentShader.h"
+#include "render/ShaderManager.h"
 using namespace _Shader;
 Render::Render() :m_program(nullptr), m_initialized(false), m_face(GL_FRONT_AND_BACK), m_mode(GL_FILL)
 {

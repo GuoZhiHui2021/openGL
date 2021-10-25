@@ -70,7 +70,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>Include;$(IncludePath)</IncludePath>
+    <IncludePath>Include;src;$(IncludePath)</IncludePath>
     <LibraryPath>Libs\GLFW;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -130,37 +130,37 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="FragmentShader.cpp" />
     <ClCompile Include="glad\src\glad.c" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="PanelRender.cpp" />
-    <ClCompile Include="Render.cpp" />
-    <ClCompile Include="Shader.cpp" />
-    <ClCompile Include="ShaderFactory.cpp" />
-    <ClCompile Include="ShaderManager.cpp" />
-    <ClCompile Include="ShaderProgram.cpp" />
-    <ClCompile Include="Singleton.cpp" />
-    <ClCompile Include="Texture.cpp" />
-    <ClCompile Include="VertexShader.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="def.h" />
-    <ClInclude Include="FragmentShader.h" />
-    <ClInclude Include="main.h" />
-    <ClInclude Include="PanelRender.h" />
-    <ClInclude Include="Render.h" />
-    <ClInclude Include="resource.h" />
-    <ClInclude Include="Shader.h" />
-    <ClInclude Include="ShaderFactory.h" />
-    <ClInclude Include="ShaderManager.h" />
-    <ClInclude Include="ShaderProgram.h" />
-    <ClInclude Include="Singleton.h" />
-    <ClInclude Include="stb_image.h" />
-    <ClInclude Include="Texture.h" />
-    <ClInclude Include="VertexShader.h" />
+    <ClCompile Include="src\common\Singleton.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\render\FragmentShader.cpp" />
+    <ClCompile Include="src\render\PanelRender.cpp" />
+    <ClCompile Include="src\render\Render.cpp" />
+    <ClCompile Include="src\render\Shader.cpp" />
+    <ClCompile Include="src\render\ShaderFactory.cpp" />
+    <ClCompile Include="src\render\ShaderManager.cpp" />
+    <ClCompile Include="src\render\ShaderProgram.cpp" />
+    <ClCompile Include="src\render\Texture.cpp" />
+    <ClCompile Include="src\render\VertexShader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MyFristOpenGLWindow.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="src\common\Singleton.h" />
+    <ClInclude Include="src\main.h" />
+    <ClInclude Include="src\render\def.h" />
+    <ClInclude Include="src\render\FragmentShader.h" />
+    <ClInclude Include="src\render\PanelRender.h" />
+    <ClInclude Include="src\render\Render.h" />
+    <ClInclude Include="src\render\Shader.h" />
+    <ClInclude Include="src\render\ShaderFactory.h" />
+    <ClInclude Include="src\render\ShaderManager.h" />
+    <ClInclude Include="src\render\ShaderProgram.h" />
+    <ClInclude Include="src\render\stb_image.h" />
+    <ClInclude Include="src\render\Texture.h" />
+    <ClInclude Include="src\render\VertexShader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

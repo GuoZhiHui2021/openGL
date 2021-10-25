@@ -1,9 +1,10 @@
+#include<glad/glad.h>
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
-#include "Texture.h"
+#include "render/Texture.h"
 bool Texture::load(const char * src)
 {
-	/*int width, height, nrChannels;
+	int width, height, nrChannels;
 	unsigned char *data = stbi_load(src, &width, &height, &nrChannels, 0);
 	if(!data)
 		return false;
@@ -26,6 +27,5 @@ bool Texture::load(const char * src)
 	m_height = height;
 	m_nrChannels = nrChannels;
 	m_name.replace(m_name.begin(), m_name.end(), src);
-	return true;*/
-	return false;
+	return true;
 }

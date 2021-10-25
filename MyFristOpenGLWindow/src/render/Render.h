@@ -1,7 +1,7 @@
 #pragma once
-#include "ShaderProgram.h"
+#include "render/ShaderProgram.h"
 #include <unordered_map>
-#include "Shader.h"
+#include "render/Shader.h"
 using namespace _Shader;
 
 //float* vertices/  float* uv/float* color/ float* alpha/

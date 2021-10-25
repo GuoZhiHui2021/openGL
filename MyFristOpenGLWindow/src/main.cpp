@@ -1,9 +1,9 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
-#include "ShaderManager.h"
-#include "def.h"
-#include "PanelRender.h"
+#include "render/ShaderManager.h"
+#include "render/def.h"
+#include "render/PanelRender.h"
 
 using namespace _Shader;
 GLFWwindow* createWindow();
