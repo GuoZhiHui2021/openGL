@@ -161,42 +161,65 @@ int main()
 	//}
 	
 	{
-		float vertices[] = {
+		float vertices1[] = {
 			-0.8f, -0.4f,0.0f,1.0f,0.0f,0.0f,
 			-0.2f, -0.4f,0.0f,0.0f,1.0f,0.0f,
 			-0.2f, 0.4f, 0.0f,1.0f,0.0f,0.0f,
 			-0.8f, 0.4f, 0.0f,0.0f,0.0f,1.0f,
-			0.2f, -0.4f, 0.0f,1.0f,0.0f,0.0f,
-			0.8f, -0.4f, 0.0f,0.0f,1.0f,0.0f,
-			0.8f, 0.4f, 0.0f,1.0f,0.0f,0.0f,
-			0.2f, 0.4f, 0.0f,0.0f,0.0f,1.0f,
 		};
-		unsigned int indices[] = {
+		unsigned int indices1[] = {
 			0, 1, 3,
 			1, 2, 3,
-			4, 5, 7,
-			5, 6, 7,
+		};
+
+		float vertices2[] = {
+			0.2f, -0.4f, 0.0f, 1.0f, 0.0f, 0.0f,
+			0.8f, -0.4f, 0.0f, 0.0f, 1.0f, 0.0f,
+			0.8f, 0.4f, 0.0f, 1.0f, 0.0f, 0.0f,
+			//0.2f, 0.4f, 0.0f, 0.0f, 0.0f, 1.0f,
+		};
+
+		unsigned int indices2[] = {
+			0, 1, 2,
 		};
 		
 		ShaderManager::Instance()->initialize();
 		ShaderManager::Instance()->addShader(VERTEXSHADER_TYPE, "shader/panel.vs");
-		ShaderManager::Instance()->addShader(FRAGMENTSHADER_TYPE, "shader/panel.fs");
-		PanelRender render;
-		render.initialize();
-		render.attachShader(VERTEXSHADER_TYPE, "shader/panel.vs");
-		render.attachShader(FRAGMENTSHADER_TYPE, "shader/panel.fs");
-		render.initialized();
+		ShaderManager::Instance()->addShader(FRAGMENTSHADER_TYPE, "shader/helloTriangle1.fs");
+		ShaderManager::Instance()->addShader(FRAGMENTSHADER_TYPE, "shader/helloTriangle2.fs");
+		PanelRender render1;
+		render1.initialize();
+		render1.attachShader(VERTEXSHADER_TYPE, "shader/panel.vs");
+		render1.attachShader(FRAGMENTSHADER_TYPE, "shader/helloTriangle1.fs");
+		render1.initialized();
 
 		RenderData* renderData = new RenderData();
-		renderData->vertices = (float*)malloc(sizeof(vertices));
-		memcpy(renderData->vertices, vertices, sizeof(vertices));
-		renderData->count = 8;
-		renderData->element = (unsigned int*)malloc(sizeof(indices));
-		memcpy(renderData->element, indices, sizeof(indices));
-		renderData->element_count = 12;
+		renderData->vertices = (float*)malloc(sizeof(vertices1));
+		memcpy(renderData->vertices, vertices1, sizeof(vertices1));
+		renderData->count = 4;
+		renderData->element = (unsigned int*)malloc(sizeof(indices1));
+		memcpy(renderData->element, indices1, sizeof(indices1));
+		renderData->element_count = 6;
 		renderData->useColor = true;
 		renderData->id = 1;
-		render.loadData(renderData);
+		render1.loadData(renderData);
+
+		PanelRender render2;
+		render2.initialize();
+		render2.attachShader(VERTEXSHADER_TYPE, "shader/panel.vs");
+		render2.attachShader(FRAGMENTSHADER_TYPE, "shader/helloTriangle2.fs");
+		render2.initialized();
+
+		RenderData* renderData2 = new RenderData();
+		renderData2->vertices = (float*)malloc(sizeof(vertices2));
+		memcpy(renderData2->vertices, vertices2, sizeof(vertices2));
+		renderData2->count = 4;
+		renderData2->element = (unsigned int*)malloc(sizeof(indices2));
+		memcpy(renderData2->element, indices2, sizeof(indices2));
+		renderData2->element_count = 6;
+		renderData2->useColor = true;
+		renderData2->id = 1;
+		render2.loadData(renderData2);
 
 		/*float vertices2[] = {
 			-0.5f, 0.2f,0.0f,1.0f,0.0f,0.0f,
@@ -228,7 +251,8 @@ int main()
 			glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT);
 
-			render.render();
+			render1.render();
+			render2.render();
 
 			glfwPollEvents();
 			glfwSwapBuffers(window);
