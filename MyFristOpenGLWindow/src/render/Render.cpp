@@ -82,31 +82,38 @@ void Render::loadData(RenderData * data)
 		p_size += 3;
 	if (data->useAlpha)
 		p_size += 1;
-	if (data->useUV)
-		p_size += 2;
+	for (size_t i = 0; i < sizeof(data->useUV); i++)
+	{
+		if (data->useUV[i])
+			p_size += 2;
+	}
+	
 	size_t c_size = 0;
 	glBufferData(GL_ARRAY_BUFFER, data->count * p_size * sizeof(float), data->vertices, GL_STATIC_DRAW);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, data->element_count * sizeof(unsigned int), data->element, GL_STATIC_DRAW);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, p_size * sizeof(float), (void*)(c_size * sizeof(float)));
 	glEnableVertexAttribArray(0);
 	c_size += 3;
-	if (data->useUV)
-	{
-		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, p_size * sizeof(float), (void*)(c_size * sizeof(float)));
-		glEnableVertexAttribArray(1);
-		c_size += 2;
-	}
 	if (data->useColor)
 	{
-		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, p_size * sizeof(float), (void*)(c_size * sizeof(float)));
-		glEnableVertexAttribArray(2);
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, p_size * sizeof(float), (void*)(c_size * sizeof(float)));
+		glEnableVertexAttribArray(1);
 		c_size += 3;
 	}
 	if (data->useAlpha)
 	{
-		glVertexAttribPointer(3, 1, GL_FLOAT, GL_FALSE, p_size * sizeof(float), (void*)(c_size * sizeof(float)));
-		glEnableVertexAttribArray(3);
+		glVertexAttribPointer(2, 1, GL_FLOAT, GL_FALSE, p_size * sizeof(float), (void*)(c_size * sizeof(float)));
+		glEnableVertexAttribArray(2);
 		c_size += 1;
+	}
+	for (size_t i = 0;i < sizeof(data->useUV); i++)
+	{
+		if (data->useUV[i])
+		{
+			glVertexAttribPointer(3 + i, 2, GL_FLOAT, GL_FALSE, p_size * sizeof(float), (void*)(c_size * sizeof(float)));
+			glEnableVertexAttribArray(3+i);
+			c_size += 2;
+		}
 	}
 	glBindVertexArray(0);
 }

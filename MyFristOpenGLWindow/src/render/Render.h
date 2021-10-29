@@ -4,6 +4,12 @@
 #include "render/Shader.h"
 using namespace _Shader;
 
+struct TextureData
+{
+	char texture[127] = {};
+	uint16_t textureUnit = 0;
+	uint16_t options[8] = { GL_REPEAT,GL_REPEAT,GL_NEAREST,GL_NEAREST,0x0000,0x0000,0x0000,0x0000};
+};
 //float* vertices/  float* uv/float* color/ float* alpha/
 struct RenderData
 {
@@ -13,11 +19,11 @@ struct RenderData
 	unsigned int texture_name_length = 0;
 	float* vertices;
 	unsigned int* element;
-	char* texture;
-	bool useUV = false;
+	TextureData* textures;
+	bool useUV[2] = { false,false };
 	bool useColor = false;
 	bool useAlpha = false;
-	bool useTexture = false;
+	int textureSize = 0;
 	unsigned int VBO = 0;
 	unsigned int VAO = 0;
 	unsigned int EBO = 0;

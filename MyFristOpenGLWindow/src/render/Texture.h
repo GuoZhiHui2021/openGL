@@ -4,17 +4,17 @@
 class Texture
 {
 public:
-	Texture(unsigned int min_minmap = 0,unsigned int weap_s = GL_REPEAT, unsigned int weap_t = GL_REPEAT, unsigned int min_filter = GL_NEAREST, unsigned int mag_filter = GL_NEAREST):m_id(0), m_name(""), \
-		m_width(0), m_height(0), m_nrChannels(0),MIN_FILTER(min_filter),MAG_FILTER(mag_filter), WRAP_S(weap_s), WRAP_T(weap_t)
+	Texture():m_texture(0), m_name(""),m_width(0), m_height(0), m_nrChannels(0)
 	{}
 	bool load(const char * src);
+	void use(uint16_t textureUnit,uint16_t parameter[]);
+	unsigned int getTextureID() {return m_texture; }
+	const std::string& getName() { return m_name; }
+	int getWidth() { return m_width; }
+	int getHeight() { return m_height; }
+	int getChannelSize() { return m_nrChannels; }
 private:
-	unsigned int m_id;
-	unsigned int MIN_FILTER;
-	unsigned int MAG_FILTER;
-	unsigned int MIN_MINMAP;
-	unsigned int WRAP_S;
-	unsigned int WRAP_T;
+	unsigned int m_texture;
 	std::string m_name;
 	int m_width; 
 	int m_height;

@@ -141,6 +141,7 @@
     <ClCompile Include="src\render\ShaderManager.cpp" />
     <ClCompile Include="src\render\ShaderProgram.cpp" />
     <ClCompile Include="src\render\Texture.cpp" />
+    <ClCompile Include="src\render\TextureManager.cpp" />
     <ClCompile Include="src\render\VertexShader.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -148,6 +149,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
+    <ClInclude Include="src\common\FileUtil.h" />
     <ClInclude Include="src\common\Singleton.h" />
     <ClInclude Include="src\main.h" />
     <ClInclude Include="src\render\def.h" />
@@ -160,6 +162,7 @@
     <ClInclude Include="src\render\ShaderProgram.h" />
     <ClInclude Include="src\render\stb_image.h" />
     <ClInclude Include="src\render\Texture.h" />
+    <ClInclude Include="src\render\TextureManager.h" />
     <ClInclude Include="src\render\VertexShader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
