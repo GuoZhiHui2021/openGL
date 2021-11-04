@@ -54,6 +54,9 @@
     <ClCompile Include="src\render\TextureManager.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\common\Transform.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MyFristOpenGLWindow.rc">
@@ -107,6 +110,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\common\FileUtil.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\common\Transform.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

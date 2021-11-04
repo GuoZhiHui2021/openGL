@@ -172,7 +172,7 @@ void _Shader::ShaderProgram::Uniform::update(ShaderProgram * program)
 		glUniform4f(m_location, *((GLfloat*)m_value), *((GLfloat*)m_value + 1), *((GLfloat*)m_value + 2), *((GLfloat*)m_value + 3));
 		break;
 	case _Shader::SPT_MAT4:
-		glUniformMatrix4fv(m_location, 16, false, (GLfloat*)m_value);
+		glUniformMatrix4fv(m_location, 1, false, (GLfloat*)m_value);
 		break;
 	case _Shader::SPT_TEXTURE:
 		break;

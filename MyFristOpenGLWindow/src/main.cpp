@@ -2,9 +2,13 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include <algorithm>
+#include <math.h>
 #include "render/ShaderManager.h"
 #include "render/def.h"
 #include "render/PanelRender.h"
+#include "common/Transform.h"
+
+#define PI acos(-1)
 
 using namespace _Shader;
 GLFWwindow* createWindow();
@@ -179,29 +183,11 @@ int main()
 			0.2f, 0.4f, 0.0f,   0.0f,0.0f,1.0f,     0.0f, 1.0f,
 		};*/
 		
-		float vertices0[] = {
-			-1.0f, 1.0f,0.0f,  1.0f,0.0f,0.0f,    0.0f, 2.0f,
-			-1.0f, 0.0f,0.0f,  0.0f,1.0f,0.0f,    0.0f, 1.0f,
-			0.0f, 0.0f, 0.0f,  1.0f,0.0f,0.0f,    1.0f, 1.0f,
-			0.0f, 1.0f, 0.0f,  0.0f,0.0f,1.0f,    1.0f, 2.0f,
-		};
-		float vertices1[] = {
-			0.0f, 1.0f,0.0f,  1.0f,0.0f,0.0f,    1.0f, 2.0f,
-			0.0f, 0.0f,0.0f,  0.0f,1.0f,0.0f,    1.0f, 1.0f,
-			1.0f, 0.0f, 0.0f,  1.0f,0.0f,0.0f,    2.0f, 1.0f,
-			1.0f, 1.0f, 0.0f,  0.0f,0.0f,1.0f,    2.0f, 2.0f,
-		};
-		float vertices2[] = {
-			-1.0f, 0.0f,0.0f,  1.0f,0.0f,0.0f,    0.0f, 1.0f,
-			-1.0f, -1.0f,0.0f,  0.0f,1.0f,0.0f,    0.0f, 0.0f,
-			0.0f, -1.0f, 0.0f,  1.0f,0.0f,0.0f,    1.0f, 0.0f,
-			0.0f, 0.0f, 0.0f,  0.0f,0.0f,1.0f,    1.0f, 1.0f,
-		};
-		float vertices3[] = {
-			0.0f, 0.0f,0.0f,  1.0f,0.0f,0.0f,    1.0f, 1.0f,
-			0.0f, -1.0f,0.0f,  0.0f,1.0f,0.0f,    1.0f, 0.0f,
-			1.0f, -1.0f, 0.0f,  1.0f,0.0f,0.0f,    2.0f, 0.0f,
-			1.0f, 0.0f, 0.0f,  0.0f,0.0f,1.0f,    2.0f, 1.0f,
+		float vertices[] = {
+			-0.5f, 0.5f,0.0f,  1.0f,0.0f,0.0f,    0.0f, 2.0f,
+			-0.5f, -0.5f,0.0f,  0.0f,1.0f,0.0f,    0.0f, 1.0f,
+			0.5f, -0.5f, 0.0f,  1.0f,0.0f,0.0f,    1.0f, 1.0f,
+			0.5f, 0.5f, 0.0f,  0.0f,0.0f,1.0f,    1.0f, 2.0f,
 		};
 		/*float vertices[] = {
 			-0.8f, -0.4f,0.0f,  1.0f,0.0f,0.0f,
@@ -225,20 +211,14 @@ int main()
 		};
 		
 		ShaderManager::Instance()->initialize();
-		ShaderManager::Instance()->addShader(VERTEXSHADER_TYPE, "shader/texture.vs");
+		ShaderManager::Instance()->addShader(VERTEXSHADER_TYPE, "shader/transform.vs");
 		ShaderManager::Instance()->addShader(FRAGMENTSHADER_TYPE, "shader/texture.fs");
-		ShaderManager::Instance()->addShader(FRAGMENTSHADER_TYPE, "shader/texture1.fs");
-		PanelRender render1;
-		render1.initialize();
-		render1.attachShader(VERTEXSHADER_TYPE, "shader/texture.vs");
-		render1.attachShader(FRAGMENTSHADER_TYPE, "shader/texture.fs");
-		render1.initialized();
+		PanelRender render;
+		render.initialize();
+		render.attachShader(VERTEXSHADER_TYPE, "shader/transform.vs");
+		render.attachShader(FRAGMENTSHADER_TYPE, "shader/texture.fs");
+		render.initialized();
 
-		PanelRender render2;
-		render2.initialize();
-		render2.attachShader(VERTEXSHADER_TYPE, "shader/texture.vs");
-		render2.attachShader(FRAGMENTSHADER_TYPE, "shader/texture1.fs");
-		render2.initialized();
 
 
 		TextureData boxTextureData0 = createTextureData("res/texture/container.jpg", GL_TEXTURE0);
@@ -246,34 +226,11 @@ int main()
 		TextureData textureDatas[2];
 		memcpy(textureDatas, &boxTextureData0, sizeof(TextureData));
 		memcpy(&textureDatas[1], &boxTextureData1, sizeof(TextureData));
-		TextureData textureDatas0[2];
-		TextureData textureDatas1[2];
-		TextureData textureDatas2[2];
-		TextureData textureDatas3[2];
 
-		memcpy(textureDatas0, &textureDatas, 2 * sizeof(TextureData));
-		memcpy(textureDatas1, &textureDatas, 2 * sizeof(TextureData));
-		memcpy(textureDatas2, &textureDatas, 2 * sizeof(TextureData));
-		memcpy(textureDatas3, &textureDatas, 2 * sizeof(TextureData));
 
-		textureDatas0[0].options[0] = GL_CLAMP_TO_EDGE;
-		textureDatas0[0].options[1] = GL_CLAMP_TO_EDGE;
+		RenderData* renderData = createRenderData(1, vertices, 4, indices, 6, textureDatas, 2);
 
-		textureDatas1[0].options[0] = GL_CLAMP_TO_BORDER;
-		textureDatas1[0].options[1] = GL_CLAMP_TO_BORDER;
-
-		textureDatas3[0].options[0] = GL_MIRRORED_REPEAT;
-		textureDatas3[0].options[1] = GL_MIRRORED_REPEAT;
-
-		RenderData* renderData0 = createRenderData(1, vertices0, 4, indices, 6, textureDatas0, 2);
-		RenderData* renderData1 = createRenderData(2, vertices1, 4, indices, 6, textureDatas1, 2);
-		RenderData* renderData2 = createRenderData(3, vertices2, 4, indices, 6, textureDatas2, 2);
-		RenderData* renderData3 = createRenderData(4, vertices3, 4, indices, 6, textureDatas3, 2);
-
-		render1.loadData(renderData0);
-		render1.loadData(renderData1);
-		render1.loadData(renderData2);
-		render2.loadData(renderData3);
+		render.loadData(renderData);
 
 		
 		//render.setPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -284,15 +241,21 @@ int main()
 			//‰÷»æ÷∏¡Ó
 			glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT);
+			Transfrom transform = Transfrom();
+			
+			transform = transform.rotate((float)glfwGetTime()*180/ PI, glm::vec3(0.0f, 0.0f, 1.0f));
+			transform = transform.translate(glm::vec3(0.5f, -0.5f, 0.0f));
+			render.setUniform("transform", transform.value(), 16, ShaderParamType::SPT_MAT4);
+			render.render();
 
-			if (alpha_dirty)
-			{
-				render2.setUniform("alpha", (void*)&alpha, 1, ShaderParamType::SPT_FLOAT);
-				alpha_dirty = false;
-			}
-			render1.render();
-			render2.render();
-
+			Transfrom transform2 = Transfrom();
+			transform2 = transform2.translate(glm::vec3(-0.5f, 0.5f, 0.0f));
+			float f = fmod(glfwGetTime(), 3)/ 5 + 1.0f/5.0f;
+			float k = sin(f * PI);
+			transform2 = transform2.scale(glm::vec3(k, k, 1.0f));
+			render.setUniform("transform", transform2.value(), 16, ShaderParamType::SPT_MAT4);
+			
+			render.render();
 			glfwPollEvents();
 			glfwSwapBuffers(window);
 		}

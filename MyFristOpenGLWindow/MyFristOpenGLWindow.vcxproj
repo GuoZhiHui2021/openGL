@@ -132,6 +132,7 @@
   <ItemGroup>
     <ClCompile Include="glad\src\glad.c" />
     <ClCompile Include="src\common\Singleton.cpp" />
+    <ClCompile Include="src\common\Transform.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\render\FragmentShader.cpp" />
     <ClCompile Include="src\render\PanelRender.cpp" />
@@ -151,6 +152,7 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="src\common\FileUtil.h" />
     <ClInclude Include="src\common\Singleton.h" />
+    <ClInclude Include="src\common\Transform.h" />
     <ClInclude Include="src\main.h" />
     <ClInclude Include="src\render\def.h" />
     <ClInclude Include="src\render\FragmentShader.h" />
