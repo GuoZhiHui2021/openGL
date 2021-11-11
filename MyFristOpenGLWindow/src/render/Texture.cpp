@@ -1,7 +1,7 @@
 #include<glad/glad.h>
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
-#include "render/Texture.h"
+#include "Texture.h"
 #include "common/FileUtil.h"
 bool Texture::load(const char * src)
 {
