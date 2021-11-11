@@ -1,7 +1,7 @@
-#include "render/ShaderManager.h"
-#include "render/VertexShader.h"
-#include "render/FragmentShader.h"
-#include "render/def.h"
+#include "ShaderManager.h"
+#include "VertexShader.h"
+#include "FragmentShader.h"
+#include "def.h"
 #include <iostream>
 using namespace _Shader;
 

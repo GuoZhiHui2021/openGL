@@ -54,7 +54,7 @@
     <ClCompile Include="src\render\TextureManager.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\common\Transform.cpp">
+    <ClCompile Include="src\common\Transfrom.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -112,7 +112,7 @@
     <ClInclude Include="src\common\FileUtil.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\common\Transform.h">
+    <ClInclude Include="src\common\Transfrom.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

@@ -6,7 +6,7 @@
 #include "render/ShaderManager.h"
 #include "render/def.h"
 #include "render/PanelRender.h"
-#include "common/Transform.h"
+#include "common/Transfrom.h"
 
 #define PI acos(-1)
 
@@ -243,7 +243,7 @@ int main()
 			glClear(GL_COLOR_BUFFER_BIT);
 			Transfrom transform = Transfrom();
 			
-			transform = transform.rotate((float)glfwGetTime()*180/ PI, glm::vec3(0.0f, 0.0f, 1.0f));
+			transform = transform.rotate(static_cast<float>(glfwGetTime()*180/ PI), glm::vec3(0.0f, 0.0f, 1.0f));
 			transform = transform.translate(glm::vec3(0.5f, -0.5f, 0.0f));
 			render.setUniform("transform", transform.value(), 16, ShaderParamType::SPT_MAT4);
 			render.render();

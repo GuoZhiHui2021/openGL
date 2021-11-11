@@ -1,4 +1,4 @@
-#include "render/PanelRender.h"
+#include "PanelRender.h"
 #include "TextureManager.h"
 
 void PanelRender::initialize()
@@ -8,7 +8,7 @@ void PanelRender::initialize()
 
 void PanelRender::render()
 {
-	if (!m_initialized)
+	if (!m_initialized||!m_program)
 		return;
 	if (m_program)
 		m_program->use();
