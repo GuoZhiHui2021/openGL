@@ -147,8 +147,6 @@ void EntityRenderSystem::updateRenderData(Entity* entity)
 		}
 		else
 		{
-			free(vertices);
-			free(elements);
 			delete data;
 			return;
 		}

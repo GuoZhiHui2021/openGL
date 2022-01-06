@@ -5,7 +5,7 @@ class RenderComponent :
     public Component
 {
 public:
-    RenderComponent() :m_visible(true), m_world_visible(true), m_material("")
+    RenderComponent() :m_visible(true), m_world_visible(true), m_material("material/default.materialPrototype")
     {}
     virtual std::string getComponentTypeName()
     {
