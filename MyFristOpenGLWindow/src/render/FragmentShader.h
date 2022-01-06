@@ -1,5 +1,5 @@
 #pragma once
-#include "render/Shader.h"
+#include "render/shader.h"
 namespace _Shader {
 	class FragmentShader :
 		public Shader

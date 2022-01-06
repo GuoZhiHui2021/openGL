@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -134,41 +134,88 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="glad\src\glad.c" />
-    <ClCompile Include="src\common\Singleton.cpp" />
-    <ClCompile Include="src\common\Transfrom.cpp" />
+    <ClCompile Include="src\common\fileUtil.cpp" />
+    <ClCompile Include="src\common\singleton.cpp" />
+    <ClCompile Include="src\common\coordinateType.cpp" />
+    <ClCompile Include="src\common\time.cpp" />
+    <ClCompile Include="src\common\util.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\render\FragmentShader.cpp" />
-    <ClCompile Include="src\render\PanelRender.cpp" />
-    <ClCompile Include="src\render\Render.cpp" />
-    <ClCompile Include="src\render\Shader.cpp" />
-    <ClCompile Include="src\render\ShaderFactory.cpp" />
-    <ClCompile Include="src\render\ShaderManager.cpp" />
-    <ClCompile Include="src\render\ShaderProgram.cpp" />
-    <ClCompile Include="src\render\Texture.cpp" />
-    <ClCompile Include="src\render\TextureManager.cpp" />
-    <ClCompile Include="src\render\VertexShader.cpp" />
+    <ClCompile Include="src\render\fragmentShader.cpp" />
+    <ClCompile Include="src\render\material.cpp" />
+    <ClCompile Include="src\render\materialManager.cpp" />
+    <ClCompile Include="src\render\render.cpp" />
+    <ClCompile Include="src\render\renderManager.cpp" />
+    <ClCompile Include="src\render\shader.cpp" />
+    <ClCompile Include="src\render\shaderFactory.cpp" />
+    <ClCompile Include="src\render\shaderManager.cpp" />
+    <ClCompile Include="src\render\shaderProgram.cpp" />
+    <ClCompile Include="src\render\texture.cpp" />
+    <ClCompile Include="src\render\textureManager.cpp" />
+    <ClCompile Include="src\render\vertexShader.cpp" />
+    <ClCompile Include="src\scene\box.cpp" />
+    <ClCompile Include="src\scene\component.cpp" />
+    <ClCompile Include="src\scene\entity.cpp" />
+    <ClCompile Include="src\scene\instance.cpp" />
+    <ClCompile Include="src\scene\renderComponent.cpp" />
+    <ClCompile Include="src\scene\scene.cpp" />
+    <ClCompile Include="src\scene\sceneManager.cpp" />
+    <ClCompile Include="src\scene\transformComponent.cpp" />
+    <ClCompile Include="src\scene\world.cpp" />
+    <ClCompile Include="src\system\entityComponentSystem.cpp" />
+    <ClCompile Include="src\system\entityCreateSystem.cpp" />
+    <ClCompile Include="src\system\entityDestorySystem.cpp" />
+    <ClCompile Include="src\system\entityRelationSystem.cpp" />
+    <ClCompile Include="src\system\entityRenderSystem.cpp" />
+    <ClCompile Include="src\system\entityTransformSystem.cpp" />
+    <ClCompile Include="src\system\inputSystem.cpp" />
+    <ClCompile Include="src\system\sceneSystem.cpp" />
+    <ClCompile Include="src\system\system.cpp" />
+    <ClCompile Include="src\system\systemManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MyFristOpenGLWindow.rc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
-    <ClInclude Include="src\common\FileUtil.h" />
-    <ClInclude Include="src\common\Singleton.h" />
-    <ClInclude Include="src\common\Transfrom.h" />
+    <ClInclude Include="src\common\fileUtil.h" />
+    <ClInclude Include="src\common\singleton.h" />
+    <ClInclude Include="src\common\coordinateType.h" />
+    <ClInclude Include="src\common\time.h" />
+    <ClInclude Include="src\common\util.h" />
     <ClInclude Include="src\main.h" />
     <ClInclude Include="src\render\def.h" />
-    <ClInclude Include="src\render\FragmentShader.h" />
-    <ClInclude Include="src\render\PanelRender.h" />
-    <ClInclude Include="src\render\Render.h" />
-    <ClInclude Include="src\render\Shader.h" />
-    <ClInclude Include="src\render\ShaderFactory.h" />
-    <ClInclude Include="src\render\ShaderManager.h" />
-    <ClInclude Include="src\render\ShaderProgram.h" />
+    <ClInclude Include="src\render\fragmentShader.h" />
+    <ClInclude Include="src\render\material.h" />
+    <ClInclude Include="src\render\materialManager.h" />
+    <ClInclude Include="src\render\render.h" />
+    <ClInclude Include="src\render\renderManager.h" />
+    <ClInclude Include="src\render\shader.h" />
+    <ClInclude Include="src\render\shaderFactory.h" />
+    <ClInclude Include="src\render\shaderManager.h" />
+    <ClInclude Include="src\render\shaderProgram.h" />
     <ClInclude Include="src\render\stb_image.h" />
-    <ClInclude Include="src\render\Texture.h" />
-    <ClInclude Include="src\render\TextureManager.h" />
-    <ClInclude Include="src\render\VertexShader.h" />
+    <ClInclude Include="src\render\texture.h" />
+    <ClInclude Include="src\render\textureManager.h" />
+    <ClInclude Include="src\render\vertexShader.h" />
+    <ClInclude Include="src\scene\box.h" />
+    <ClInclude Include="src\scene\component.h" />
+    <ClInclude Include="src\scene\entity.h" />
+    <ClInclude Include="src\scene\instance.h" />
+    <ClInclude Include="src\scene\renderComponent.h" />
+    <ClInclude Include="src\scene\scene.h" />
+    <ClInclude Include="src\scene\sceneManager.h" />
+    <ClInclude Include="src\scene\transformComponent.h" />
+    <ClInclude Include="src\scene\world.h" />
+    <ClInclude Include="src\system\entityComponentSystem.h" />
+    <ClInclude Include="src\system\entityCreateSystem.h" />
+    <ClInclude Include="src\system\entityDestorySystem.h" />
+    <ClInclude Include="src\system\entityRelationSystem.h" />
+    <ClInclude Include="src\system\entityRenderSystem.h" />
+    <ClInclude Include="src\system\entityTransformSystem.h" />
+    <ClInclude Include="src\system\inputSystem.h" />
+    <ClInclude Include="src\system\sceneSystem.h" />
+    <ClInclude Include="src\system\system.h" />
+    <ClInclude Include="src\system\systemManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -13,49 +13,157 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="头文件\Instance">
+      <UniqueIdentifier>{f71e9090-df2c-4b7d-8b5c-e783a9617439}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Render">
+      <UniqueIdentifier>{df45b8fd-d0a4-492b-acda-ea08ef4b90e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Instance">
+      <UniqueIdentifier>{639397b5-862c-4f98-9107-b1ef80f900f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Component">
+      <UniqueIdentifier>{b0be60d5-cd64-46e4-9268-3841500e825c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\World">
+      <UniqueIdentifier>{4e67b3c3-62ff-4fb9-9f9c-9d7e52109a9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Component">
+      <UniqueIdentifier>{a167e760-bdd7-4d08-8052-2a10d97716dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\World">
+      <UniqueIdentifier>{e10ef5fd-904e-4fb6-9c4d-68b0159dd0a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Render">
+      <UniqueIdentifier>{fe28cb12-b21d-4039-ae7a-a8b41957d622}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\System">
+      <UniqueIdentifier>{24051c37-e491-4941-9b4c-38e86fd31919}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\System">
+      <UniqueIdentifier>{dc3d181f-5f4c-4ba3-a886-fda4894c3943}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Common">
+      <UniqueIdentifier>{333c6e16-7889-4b94-af69-627b328f9e72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Common">
+      <UniqueIdentifier>{df62ed8e-be3d-412d-bc91-46d536ff3a7d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="glad\src\glad.c">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="src\main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\render\FragmentShader.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="src\scene\box.cpp">
+      <Filter>源文件\Instance</Filter>
     </ClCompile>
-    <ClCompile Include="src\render\PanelRender.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="src\scene\entity.cpp">
+      <Filter>源文件\Instance</Filter>
     </ClCompile>
-    <ClCompile Include="src\render\Render.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="src\scene\instance.cpp">
+      <Filter>源文件\Instance</Filter>
     </ClCompile>
-    <ClCompile Include="src\render\Shader.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="src\scene\component.cpp">
+      <Filter>源文件\Component</Filter>
     </ClCompile>
-    <ClCompile Include="src\render\ShaderFactory.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="src\scene\renderComponent.cpp">
+      <Filter>源文件\Component</Filter>
     </ClCompile>
-    <ClCompile Include="src\render\ShaderManager.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="src\scene\transformComponent.cpp">
+      <Filter>源文件\Component</Filter>
     </ClCompile>
-    <ClCompile Include="src\render\ShaderProgram.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="src\scene\scene.cpp">
+      <Filter>源文件\World</Filter>
     </ClCompile>
-    <ClCompile Include="src\render\Texture.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="src\scene\sceneManager.cpp">
+      <Filter>源文件\World</Filter>
     </ClCompile>
-    <ClCompile Include="src\render\VertexShader.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="src\scene\world.cpp">
+      <Filter>源文件\World</Filter>
     </ClCompile>
-    <ClCompile Include="src\common\Singleton.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="src\render\fragmentShader.cpp">
+      <Filter>源文件\Render</Filter>
     </ClCompile>
-    <ClCompile Include="src\render\TextureManager.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="src\render\material.cpp">
+      <Filter>源文件\Render</Filter>
     </ClCompile>
-    <ClCompile Include="src\common\Transfrom.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="src\render\materialManager.cpp">
+      <Filter>源文件\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="src\render\render.cpp">
+      <Filter>源文件\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="src\render\renderManager.cpp">
+      <Filter>源文件\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="src\render\shader.cpp">
+      <Filter>源文件\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="src\render\shaderFactory.cpp">
+      <Filter>源文件\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="src\render\shaderManager.cpp">
+      <Filter>源文件\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="src\render\shaderProgram.cpp">
+      <Filter>源文件\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="src\render\texture.cpp">
+      <Filter>源文件\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="src\render\textureManager.cpp">
+      <Filter>源文件\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="src\render\vertexShader.cpp">
+      <Filter>源文件\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="src\common\util.cpp">
+      <Filter>源文件\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\common\time.cpp">
+      <Filter>源文件\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\common\singleton.cpp">
+      <Filter>源文件\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\common\fileUtil.cpp">
+      <Filter>源文件\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\common\coordinateType.cpp">
+      <Filter>源文件\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="glad\src\glad.c">
+      <Filter>源文件\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="src\system\systemManager.cpp">
+      <Filter>源文件\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\system\inputSystem.cpp">
+      <Filter>源文件\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\system\system.cpp">
+      <Filter>源文件\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\system\sceneSystem.cpp">
+      <Filter>源文件\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\system\entityTransformSystem.cpp">
+      <Filter>源文件\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\system\entityRenderSystem.cpp">
+      <Filter>源文件\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\system\entityDestorySystem.cpp">
+      <Filter>源文件\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\system\entityCreateSystem.cpp">
+      <Filter>源文件\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\system\entityComponentSystem.cpp">
+      <Filter>源文件\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\system\entityRelationSystem.cpp">
+      <Filter>源文件\System</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -67,53 +175,122 @@
     <ClInclude Include="src\main.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\render\def.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\render\FragmentShader.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\render\PanelRender.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\render\Render.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\render\Shader.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\render\ShaderFactory.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\render\ShaderManager.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\render\ShaderProgram.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\render\stb_image.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\render\Texture.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\render\VertexShader.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\common\Singleton.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\render\TextureManager.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="src\scene\box.h">
+      <Filter>头文件\Instance</Filter>
     </ClInclude>
-    <ClInclude Include="src\common\FileUtil.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="src\scene\entity.h">
+      <Filter>头文件\Instance</Filter>
     </ClInclude>
-    <ClInclude Include="src\common\Transfrom.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="src\scene\instance.h">
+      <Filter>头文件\Instance</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render\materialManager.h">
+      <Filter>头文件\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render\material.h">
+      <Filter>头文件\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render\render.h">
+      <Filter>头文件\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render\renderManager.h">
+      <Filter>头文件\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render\shader.h">
+      <Filter>头文件\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render\shaderFactory.h">
+      <Filter>头文件\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render\shaderManager.h">
+      <Filter>头文件\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render\shaderProgram.h">
+      <Filter>头文件\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render\vertexShader.h">
+      <Filter>头文件\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render\textureManager.h">
+      <Filter>头文件\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render\texture.h">
+      <Filter>头文件\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render\stb_image.h">
+      <Filter>头文件\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render\fragmentShader.h">
+      <Filter>头文件\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene\world.h">
+      <Filter>头文件\World</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene\sceneManager.h">
+      <Filter>头文件\World</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene\scene.h">
+      <Filter>头文件\World</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene\renderComponent.h">
+      <Filter>头文件\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene\transformComponent.h">
+      <Filter>头文件\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene\component.h">
+      <Filter>头文件\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="src\common\fileUtil.h">
+      <Filter>头文件\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\common\singleton.h">
+      <Filter>头文件\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\common\time.h">
+      <Filter>头文件\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\common\util.h">
+      <Filter>头文件\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\common\coordinateType.h">
+      <Filter>头文件\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render\def.h">
+      <Filter>头文件\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\system\systemManager.h">
+      <Filter>头文件\System</Filter>
+    </ClInclude>
+    <ClInclude Include="src\system\inputSystem.h">
+      <Filter>头文件\System</Filter>
+    </ClInclude>
+    <ClInclude Include="src\system\system.h">
+      <Filter>头文件\System</Filter>
+    </ClInclude>
+    <ClInclude Include="src\system\sceneSystem.h">
+      <Filter>头文件\System</Filter>
+    </ClInclude>
+    <ClInclude Include="src\system\entityCreateSystem.h">
+      <Filter>头文件\System</Filter>
+    </ClInclude>
+    <ClInclude Include="src\system\entityTransformSystem.h">
+      <Filter>头文件\System</Filter>
+    </ClInclude>
+    <ClInclude Include="src\system\entityDestorySystem.h">
+      <Filter>头文件\System</Filter>
+    </ClInclude>
+    <ClInclude Include="src\system\entityRenderSystem.h">
+      <Filter>头文件\System</Filter>
+    </ClInclude>
+    <ClInclude Include="src\system\entityComponentSystem.h">
+      <Filter>头文件\System</Filter>
+    </ClInclude>
+    <ClInclude Include="src\system\entityRelationSystem.h">
+      <Filter>头文件\System</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

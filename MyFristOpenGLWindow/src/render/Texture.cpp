@@ -36,6 +36,35 @@ bool Texture::load(const char * src)
 	return true;
 }
 
+bool Texture::load(unsigned char r, unsigned char g, unsigned char b, unsigned char a)
+{
+	if (m_texture)
+	{
+		return false;
+	}
+	m_nrChannels = 4;
+	m_width = 1;
+	m_height = 1;
+	unsigned char* data = (unsigned char*)malloc(sizeof(unsigned char) * 4);
+	if (!data)
+		return false;
+	data[0] = r < 0 ? 0 : r>255 ? 255 : r;
+	data[1] = g < 0 ? 0 : g>255 ? 255 : g;
+	data[2] = b < 0 ? 0 : b>255 ? 255 : b;
+	data[3] = a < 0 ? 0 : a>255 ? 255 : a;
+	unsigned int texture;
+	glGenTextures(1, &texture);
+	glBindTexture(GL_TEXTURE_2D, texture);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_width, m_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+	free(data);
+	char src[11];
+	sprintf_s(src, "%#X%X%X%X", r, g, b, a);
+	src[10] = '\0';
+	m_name.replace(m_name.begin(), m_name.end(), src);
+	m_texture = texture;
+	return true;
+}
+
 void Texture::use(uint16_t textureUnit,uint16_t parameter[])
 {
 	if (!m_texture) return;

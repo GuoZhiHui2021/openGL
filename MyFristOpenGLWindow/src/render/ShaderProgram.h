@@ -1,11 +1,11 @@
 #pragma once
-#include "render/Shader.h"
+#include "render/shader.h"
 #include <string>
 #include <unordered_map>
 namespace _Shader {
-enum ShaderParamType
+enum class ShaderParamType
 {
-	SPT_UNKNOWN,
+	SPT_UNKNOWN = 0,
 	SPT_INT,
 	SPT_FLOAT,
 	SPT_VEC2,
@@ -20,7 +20,7 @@ class ShaderProgram
 		struct Uniform
 		{
 			std::string m_name = "UnKnown";
-			ShaderParamType m_type = SPT_UNKNOWN;
+			int m_type = (int)ShaderParamType::SPT_UNKNOWN;
 			int				m_count = -1;
 			int				m_sizeInBytes = -1;
 			int				m_location = -1;	
@@ -61,10 +61,33 @@ class ShaderProgram
 		}
 		void attach(Shader*);
 		void detch(Shader*);
-		void setUniform(const std::string &name, void* value, uint8_t count, ShaderParamType pType);
+		void setUniform(const std::string &name, ShaderParamType pType, void* value, uint8_t count = 0);
 		bool link();
 		void use();
+		void update();
 		unsigned int getProgramID() const;
+		static ShaderParamType convertToShaderParamType(uint16_t type)
+		{
+			switch (type)
+			{
+			case GL_INT: return ShaderParamType::SPT_INT;
+			case GL_FLOAT: return ShaderParamType::SPT_FLOAT;
+			case GL_FLOAT_VEC2: return ShaderParamType::SPT_VEC2;
+			case GL_FLOAT_VEC3: return ShaderParamType::SPT_VEC3;
+			case GL_FLOAT_VEC4: return ShaderParamType::SPT_VEC4;
+			case GL_FLOAT_MAT4: return ShaderParamType::SPT_MAT4;
+			case GL_TEXTURE0:
+			case GL_TEXTURE1:
+			case GL_TEXTURE2:
+			case GL_TEXTURE3:
+			case GL_TEXTURE4:
+			case GL_TEXTURE5:
+			case GL_TEXTURE6:
+			case GL_TEXTURE7:return ShaderParamType::SPT_TEXTURE;
+			default:
+				return ShaderParamType::SPT_UNKNOWN;
+			}
+		}
 	};
 }
 

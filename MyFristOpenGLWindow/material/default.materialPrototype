@@ -1,0 +1,3 @@
+vertexShader:{VERTEX_SHADER,shader/default.vs}
+fragmentShader:{FRAGMENT_SHADER,shader/default.fs}
+surfaceColor:{TEXTURE0,{res/texture/wall.jpg,REPEAT,REPEAT,REPEAT,REPEAT}}

@@ -1,5 +1,5 @@
 #pragma once
-#include "render/Shader.h"
+#include "render/shader.h"
 //#include "FragmentShader.h"
 //#include "VertexShader.h"
 #include <string>

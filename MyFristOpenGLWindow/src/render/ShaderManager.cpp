@@ -1,6 +1,6 @@
-#include "ShaderManager.h"
-#include "VertexShader.h"
-#include "FragmentShader.h"
+#include "shaderManager.h"
+#include "vertexShader.h"
+#include "fragmentShader.h"
 #include "def.h"
 #include <iostream>
 using namespace _Shader;

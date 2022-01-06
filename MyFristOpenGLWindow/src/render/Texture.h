@@ -7,6 +7,7 @@ public:
 	Texture():m_texture(0), m_name(""),m_width(0), m_height(0), m_nrChannels(0)
 	{}
 	bool load(const char * src);
+	bool load(unsigned char r, unsigned char g, unsigned char b, unsigned char a = 0xFF);
 	void use(uint16_t textureUnit,uint16_t parameter[]);
 	unsigned int getTextureID() {return m_texture; }
 	const std::string& getName() { return m_name; }
