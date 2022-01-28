@@ -41,5 +41,6 @@ private:
 private:
     std::unordered_set<int64_t> m_positioned;
     std::unordered_set<int64_t> m_rotationed;
+    std::unordered_set<int64_t> m_changes;
 };
 

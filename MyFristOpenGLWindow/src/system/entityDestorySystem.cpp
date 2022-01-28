@@ -1,5 +1,6 @@
 #include "entityDestorySystem.h"
 #include <scene/sceneManager.h>
+#include <scene/cameraManager.h>
 #include <render/renderManager.h>
 #include <common/util.h>
 void EntityDestorySystem::execute_implement()
@@ -21,25 +22,16 @@ void EntityDestorySystem::destory(std::string data)
 			auto entity = scene->getEntity(id);
 			if (entity)
 			{
-				destory(entity,true);
+				destory(entity);
 			}
 		}
 	}
 }
 
-void EntityDestorySystem::destory(Entity* entity,bool removeFromParent)
+void EntityDestorySystem::destory(Entity* entity)
 {
+	if (!entity)
+		return;
 	auto scene = SceneManager::Instance()->queryEntityScene(entity->getUniformId());
-	for (auto child: entity->getChildren())
-	{
-		destory((Entity*)child);
-	}
-	RenderManager::Instance()->destory(entity->getInstanceId());
 	scene->remove(entity->getUniformId());
-	Instance* parent = entity->getParent();
-	if (removeFromParent && parent)
-	{
-		parent->removeChild(entity->getInstanceId());
-		delete entity;
-	}
 }

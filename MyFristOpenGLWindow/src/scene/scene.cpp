@@ -1,5 +1,6 @@
 #include "scene.h"
 #include "sceneManager.h"
+#include "cameraManager.h"
 
 bool Scene::add(Entity* entity)
 {
@@ -28,10 +29,14 @@ bool Scene::addEntityDFS(Entity* entity)
 		{
 			self(self, (Entity*)child);
 			m_entities[((Entity*)child)->getUniformId()] = (Entity*)child;
+			if (child->getInstanceType() == "Camera")
+				CameraManager::Instance()->addCamera(((Entity*)child)->getUniformId());
 		}
 	};
 	func(func, entity);
 	m_entities[entity->getUniformId()] = entity;
+	if (entity->getInstanceType() == "Camera")
+		CameraManager::Instance()->addCamera(entity->getUniformId());
 	addChild(entity);
 	return true;
 }
@@ -43,11 +48,15 @@ void Scene::remove(uint64_t entityId)
 		return;
 	}
 	Entity* entity = m_entities[entityId];
-	removeFromEntities(entityId);
+	for (auto child : entity->getChildren())
+	{
+		remove(((Entity*)child)->getUniformId());
+	}
 	if (Instance* parent = entity->getParent())
 	{
 		parent->removeChild(entity->getInstanceId());
 	}
+	eraseEntity(entity);
 	delete entity;
 }
 
@@ -76,7 +85,8 @@ void Scene::clear()
 	while (iter != m_entities.end())
 	{
 		Entity* entity = iter->second;
-		m_entities.erase(iter++);
+		iter++;
+		eraseEntity(entity);
 	}
 	for (auto child : getChildren())
 	{
@@ -132,6 +142,18 @@ void Scene::removeFromEntities(uint64_t entityId)
 	{
 		removeFromEntities(((Entity*)child)->getUniformId());
 	}
-	m_entities.erase(entityId);
+	eraseEntity(entity);
+}
 
+void Scene::eraseEntity(Entity* entity)
+{
+	if (!entity)
+		return;
+	uint64_t uid = entity->getUniformId();
+	if (m_entities.find(uid) != m_entities.end())
+		m_entities.erase(uid);
+	if (entity->getInstanceType() == "Camera")
+	{
+		CameraManager::Instance()->deleteCamera(uid);
+	}
 }

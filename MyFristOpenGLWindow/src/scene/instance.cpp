@@ -34,7 +34,7 @@ void Instance::removeChild(int64_t id)
 		{
 			Instance* child = m_children[i];
 			m_children.erase(m_children.begin()+i);
-			child:setParent(nullptr);
+			child->setParent(nullptr);
 		}
 	}
 }

@@ -3,6 +3,7 @@
 #include "fragmentShader.h"
 #include "shaderManager.h"
 #include "textureManager.h"
+#include <scene/cameraManager.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -67,6 +68,8 @@ void Render::render()
 	glm::mat4 view(1.0f);
 	// 注意，我们将矩阵向我们要进行移动场景的反方向移动。
 	view = glm::translate(view, glm::vec3(0.0f, 0.0f, -10.0f));
+	//CameraManager::Instance()->setMainCamera(3);
+	auto viewTransfrom = CameraManager::Instance()->getViewTransfrom();
 	setUniform("viewMat", ShaderProgram::convertToShaderParamType(GL_FLOAT_MAT4), glm::value_ptr(view));
 	setUniform("projectionMat", ShaderProgram::convertToShaderParamType(GL_FLOAT_MAT4), glm::value_ptr(projection));
 

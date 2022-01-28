@@ -165,6 +165,18 @@
     <ClCompile Include="src\system\entityRelationSystem.cpp">
       <Filter>源文件\System</Filter>
     </ClCompile>
+    <ClCompile Include="src\scene\camera.cpp">
+      <Filter>源文件\Instance</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scene\cameraManager.cpp">
+      <Filter>源文件\World</Filter>
+    </ClCompile>
+    <ClCompile Include="src\render\glWindow.cpp">
+      <Filter>源文件\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="src\system\cameraControlSystem.cpp">
+      <Filter>源文件\System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MyFristOpenGLWindow.rc">
@@ -290,6 +302,18 @@
       <Filter>头文件\System</Filter>
     </ClInclude>
     <ClInclude Include="src\system\entityRelationSystem.h">
+      <Filter>头文件\System</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene\camera.h">
+      <Filter>头文件\Instance</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene\cameraManager.h">
+      <Filter>头文件\World</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render\glWindow.h">
+      <Filter>头文件\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="src\system\cameraControlSystem.h">
       <Filter>头文件\System</Filter>
     </ClInclude>
   </ItemGroup>

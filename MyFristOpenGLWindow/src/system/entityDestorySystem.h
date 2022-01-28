@@ -15,7 +15,7 @@ public:
 protected:
     virtual void execute_implement();
     void destory(std::string data);
-	void destory(Entity* entity,bool removeFromParent = false);
+	void destory(Entity* entity);
 private:
 
 };

@@ -31,9 +31,9 @@ protected:
     virtual void setParent_implement(Instance* instance);
 private:
     void removeFromEntities(uint64_t entityId);
+    void eraseEntity(Entity* entity);
 private:
     std::unordered_map<uint64_t,Entity*> m_entities;
     int64_t m_scene_id;
-    //camera is entity£¿
 };
 

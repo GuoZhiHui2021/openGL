@@ -1,4 +1,5 @@
 #include "sceneManager.h"
+#include "cameraManager.h"
 
 SceneManager::SceneManager():m_curScene(nullptr)
 {
@@ -17,6 +18,11 @@ void SceneManager::addScene(Scene* scene)
 	}
 	if (!m_curScene)
 	{
+		for (auto entity : scene->getEntities())
+		{
+			if (entity->getInstanceType() == "Camera")
+				CameraManager::Instance()->addCamera(entity->getUniformId());
+		}
 		m_curScene = scene;
 	}
 		
@@ -29,13 +35,22 @@ void SceneManager::switchScene(Scene* scene)
 		return;
 	if (m_curScene)
 	{
-		std::vector<Entity*> entities = scene->separateSustainedEntities();
+		std::vector<Entity*> entities = m_curScene->separateSustainedEntities();
 		for (auto entity : entities)
 		{
 			scene->addEntityDFS(entity);
 		}
 	}
 	addScene(scene);
+	if (m_curScene != scene)
+	{
+		for (auto entity : scene->getEntities())
+		{
+			if (entity->getInstanceType() == "Camera")
+				CameraManager::Instance()->addCamera(entity->getUniformId());
+		}
+		m_curScene = scene;
+	}
 }
 
 void SceneManager::removeScene(uint64_t sceneId)

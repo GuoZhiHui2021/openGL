@@ -13,6 +13,14 @@ enum class InputSystemOptionType
 class InputSystem final:
     public System
 {
+private:
+	enum class Commond
+	{
+		_Front = 1,
+		_Right = 2,
+		_Yaw = 3,
+		_Pitch = 4,
+	};
 public:
 	virtual int getOrder()
 	{
@@ -24,5 +32,10 @@ public:
 	}
 protected:
     virtual void execute_implement();
+private:
+	int m_right = 0;
+	int m_front = 0;
+	int m_yaw = 0;
+	int m_pitch = 0;
 };
 

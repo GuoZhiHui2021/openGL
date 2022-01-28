@@ -5,7 +5,7 @@ class TransformComponent :
     public Component
 {
 public:
-	TransformComponent():m_drity(false),m_position(0.0f, 0.0f, 0.0f), m_rotation(0.0f, 0.0f, 0.0f), m_size(1.0f, 1.0f, 1.0f), m_angularVelocity(0.0f,0.0f,0.0f),m_velocity(0.0f, 0.0f, 0.0f), m_transform(), m_world_transform()
+	TransformComponent():m_drity(false),m_position(0.0f, 0.0f, 0.0f), m_rotation(0.0f, 0.0f, 0.0f), m_size(1.0f, 1.0f, 1.0f), m_angularVelocity(0.0f,0.0f,0.0f),m_velocity(0.0f, 0.0f, 0.0f), m_transform(), m_parent_world_transform()
 	{};
 	virtual std::string getComponentTypeName()
 	{
@@ -60,11 +60,15 @@ public:
 	Transfrom getTransfrom();
 	Transfrom getWorldTransfrom()
 	{
-		return m_world_transform;
+		return m_parent_world_transform * getTransfrom();
+	}
+	void setParentWorldTransfrom(Transfrom t)
+	{
+		m_parent_world_transform = t;
 	}
 private:
 	Transfrom m_transform;
-	Transfrom m_world_transform;
+	Transfrom m_parent_world_transform;
 	Vector3 m_position;
 	Vector3 m_rotation;
 	Vector3 m_size;

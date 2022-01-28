@@ -1,22 +1,22 @@
 #pragma once
 #include "system.h"
-class EntityCreateSystem final:
+class CameraControlSystem final:
     public System
 {
 private:
 	enum class Commond
 	{
-		_Box = 1,
-		_Camrea = 2
+		_Offset = 1,
+		_OrientationOffset = 2
 	};
 public:
 	virtual int getOrder()
 	{
-		return 4000;
+		return 9000;
 	}
 	virtual uint16_t getSystemType()
 	{
-		return 3;
+		return 9;
 	}
 protected:
 	virtual void execute_implement();

@@ -6,6 +6,7 @@
 #include "entityComponentSystem.h"
 #include "entityTransformSystem.h"
 #include "entityRenderSystem.h"
+#include "cameraControlSystem.h"
 #include "entityDestorySystem.h"
 #include <algorithm>
 SystemManager::SystemManager()
@@ -17,6 +18,7 @@ SystemManager::SystemManager()
 	add(new EntityComponentSystem());
 	add(new EntityTransformSystem());
 	add(new EntityRenderSystem());
+	add(new CameraControlSystem());
 	add(new EntityDestorySystem());
 }
 
@@ -58,11 +60,11 @@ void SystemManager::tick()
 			sys->pushCommand(_commond);
 		}
 	}
+	m_commonds.clear();
 	for (auto sys : m_system)
 	{
 		sys->execute();
 	}
-	m_commonds.clear();
 }
 
 System* SystemManager::getSystem(uint16_t type)

@@ -54,6 +54,8 @@ void EntityTransformSystem::execute_implement()
 				auto component = entity->getComponent<TransformComponent>();
 				if (component&& component->getVelocity()!=Vector3())
 				{
+					if (m_changes.find(entity->getUniformId()) != m_changes.end())
+						m_changes.insert(entity->getUniformId());
 					component->setPosition(component->getPosition() + component->getVelocity() * interval / 1000.0f);
 				}
 			}
@@ -62,14 +64,50 @@ void EntityTransformSystem::execute_implement()
 				auto component = entity->getComponent<TransformComponent>();
 				if (component && component->getAngularVelocity() != Vector3())
 				{
+					if (m_changes.find(entity->getUniformId()) != m_changes.end())
+						m_changes.insert(entity->getUniformId());
 					component->setRotation(component->getRotation() + component->getAngularVelocity() * interval / 1000.0f);
 				}
 			}
 			
 		}
+		auto iter = m_changes.begin();
+		while (iter != m_changes.end())
+		{
+			auto id = *iter;
+			auto entity = scene->getEntity(id);
+			iter++;
+			while (!entity->isRoot() && entity->getParent() && m_changes.find(((Entity*)(entity->getParent()))->getUniformId()) == m_changes.end())
+			{
+				entity = (Entity*)(entity->getParent());
+			}
+			if(entity->getUniformId()!=id && m_changes.find(entity->getUniformId()) != m_changes.end())
+					m_changes.erase(id);
+		}
+		
+		auto func = [this](auto&& self, Entity* e) ->void {
+			for (auto child : e->getChildren())
+			{
+				auto component = ((Entity*)child)->getComponent<TransformComponent>();
+				if (component)
+				{
+					component->setParentWorldTransfrom(e->getComponent<TransformComponent>()->getWorldTransfrom());
+					self(self, (Entity*)child);
+				}
+			}
+		};
+
+		iter = m_changes.begin();
+		while (iter != m_changes.end())
+		{
+			auto id = *iter;
+			auto entity = scene->getEntity(id);
+			func(func, entity);
+		}
 	}
 	m_positioned.clear();
 	m_rotationed.clear();
+	m_changes.clear();
 }
 
 template<>
@@ -117,8 +155,11 @@ void EntityTransformSystem::exe<3>(std::string exeCommand)
 				m_positioned.insert(id);
 			auto component = entity->getComponent<TransformComponent>();
 			if (component)
+			{
+				if (m_changes.find(id) != m_changes.end())
+					m_changes.insert(id);
 				component->setPosition(Vector3(value[0], value[1], value[2]));
-
+			}
 		}
 	}
 }
@@ -136,7 +177,11 @@ void EntityTransformSystem::exe<4>(std::string exeCommand)
 				m_rotationed.insert(id);
 			auto component = entity->getComponent<TransformComponent>();
 			if (component)
+			{
+				if (m_changes.find(id) != m_changes.end())
+					m_changes.insert(id);
 				component->setRotation(Vector3(value[0], value[1], value[2]));
+			}	
 		}
 	}
 }
@@ -152,7 +197,11 @@ void EntityTransformSystem::exe<5>(std::string exeCommand)
 		{
 			auto component = entity->getComponent<TransformComponent>();
 			if (component)
+			{
+				if (m_changes.find(id) != m_changes.end())
+					m_changes.insert(id);
 				component->setSize(Vector3(value[0], value[1], value[2]));
+			}
 		}
 	}
 }

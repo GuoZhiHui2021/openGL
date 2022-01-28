@@ -141,6 +141,7 @@
     <ClCompile Include="src\common\util.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\render\fragmentShader.cpp" />
+    <ClCompile Include="src\render\glWindow.cpp" />
     <ClCompile Include="src\render\material.cpp" />
     <ClCompile Include="src\render\materialManager.cpp" />
     <ClCompile Include="src\render\render.cpp" />
@@ -153,6 +154,8 @@
     <ClCompile Include="src\render\textureManager.cpp" />
     <ClCompile Include="src\render\vertexShader.cpp" />
     <ClCompile Include="src\scene\box.cpp" />
+    <ClCompile Include="src\scene\camera.cpp" />
+    <ClCompile Include="src\scene\cameraManager.cpp" />
     <ClCompile Include="src\scene\component.cpp" />
     <ClCompile Include="src\scene\entity.cpp" />
     <ClCompile Include="src\scene\instance.cpp" />
@@ -161,6 +164,7 @@
     <ClCompile Include="src\scene\sceneManager.cpp" />
     <ClCompile Include="src\scene\transformComponent.cpp" />
     <ClCompile Include="src\scene\world.cpp" />
+    <ClCompile Include="src\system\cameraControlSystem.cpp" />
     <ClCompile Include="src\system\entityComponentSystem.cpp" />
     <ClCompile Include="src\system\entityCreateSystem.cpp" />
     <ClCompile Include="src\system\entityDestorySystem.cpp" />
@@ -185,6 +189,7 @@
     <ClInclude Include="src\main.h" />
     <ClInclude Include="src\render\def.h" />
     <ClInclude Include="src\render\fragmentShader.h" />
+    <ClInclude Include="src\render\glWindow.h" />
     <ClInclude Include="src\render\material.h" />
     <ClInclude Include="src\render\materialManager.h" />
     <ClInclude Include="src\render\render.h" />
@@ -198,6 +203,8 @@
     <ClInclude Include="src\render\textureManager.h" />
     <ClInclude Include="src\render\vertexShader.h" />
     <ClInclude Include="src\scene\box.h" />
+    <ClInclude Include="src\scene\camera.h" />
+    <ClInclude Include="src\scene\cameraManager.h" />
     <ClInclude Include="src\scene\component.h" />
     <ClInclude Include="src\scene\entity.h" />
     <ClInclude Include="src\scene\instance.h" />
@@ -206,6 +213,7 @@
     <ClInclude Include="src\scene\sceneManager.h" />
     <ClInclude Include="src\scene\transformComponent.h" />
     <ClInclude Include="src\scene\world.h" />
+    <ClInclude Include="src\system\cameraControlSystem.h" />
     <ClInclude Include="src\system\entityComponentSystem.h" />
     <ClInclude Include="src\system\entityCreateSystem.h" />
     <ClInclude Include="src\system\entityDestorySystem.h" />
