@@ -25,6 +25,11 @@ Transfrom Transfrom::rotate(float angle, glm::vec3 axis) const
 	return Transfrom(glm::rotate(m_trans, angle, axis));
 }
 
+Transfrom Transfrom::rotate(float x, float y, float z) const
+{
+	return rotate(z, glm::vec3(0, 0, 1)).rotate(x, glm::vec3(1, 0, 0)).rotate(y, glm::vec3(0, 1, 0));
+}
+
 Transfrom Transfrom::translate(glm::vec3 vector) const
 {
 	return Transfrom(glm::translate(m_trans, vector));
@@ -40,7 +45,7 @@ Transfrom Transfrom::operator*(Transfrom transfrom) const
 	return Transfrom(glm::mat4(m_trans) * transfrom.m_trans);
 }
 
-void* Transfrom::value() const
+void* Transfrom::value()
 {
 	return (void*)glm::value_ptr(m_trans);
 }
@@ -125,6 +130,16 @@ Vector3& Vector3::operator/=(float scale)
 {
 	m_vec3 = glm::vec3(m_vec3 / scale);
 	return *this;
+}
+
+Vector3 Vector3::cross(Vector3 v)
+{
+	return Vector3(glm::cross(m_vec3, v.m_vec3));
+}
+
+Vector3 Vector3::normalize()
+{
+	return Vector3(glm::normalize(m_vec3));
 }
 
 bool Vector3::operator==(const Vector3& vec3)

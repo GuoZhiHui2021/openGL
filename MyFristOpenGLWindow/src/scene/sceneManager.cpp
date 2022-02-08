@@ -87,6 +87,7 @@ Scene* SceneManager::queryScene(int64_t entityId)
 		if (iter->getSceneId()== entityId)
 			return iter;
 	}
+	return nullptr;
 }
 
 void SceneManager::update()

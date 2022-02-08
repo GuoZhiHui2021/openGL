@@ -31,8 +31,8 @@ Transfrom TransformComponent::getTransfrom()
 	{
 		m_transform = Transfrom().translate(m_position.getVec3()) \
 			* Transfrom().rotate(angleToRadian(m_rotation.getVec3().z), glm::vec3(0, 0, 1)) \
+			.rotate(angleToRadian(m_rotation.getVec3().x), glm::vec3(1, 0, 0)) 
 			.rotate(angleToRadian(m_rotation.getVec3().y), glm::vec3(0, 1, 0)) \
-			.rotate(angleToRadian(m_rotation.getVec3().x), glm::vec3(1, 0, 0)) \
 			* Transfrom().scale(m_size.getVec3());
 		m_drity = false;
 	}

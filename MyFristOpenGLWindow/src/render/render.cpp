@@ -63,15 +63,11 @@ void Render::render()
 	if (m_program)
 		m_program->use();
 
-	glm::mat4 projection(1.0f);
-	projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
-	glm::mat4 view(1.0f);
-	// 注意，我们将矩阵向我们要进行移动场景的反方向移动。
-	view = glm::translate(view, glm::vec3(0.0f, 0.0f, -10.0f));
-	//CameraManager::Instance()->setMainCamera(3);
-	auto viewTransfrom = CameraManager::Instance()->getViewTransfrom();
-	setUniform("viewMat", ShaderProgram::convertToShaderParamType(GL_FLOAT_MAT4), glm::value_ptr(view));
-	setUniform("projectionMat", ShaderProgram::convertToShaderParamType(GL_FLOAT_MAT4), glm::value_ptr(projection));
+	Transfrom projectionTransfrom = CameraManager::Instance()->getPerspectiveTransfrom();
+	Transfrom viewTransfrom = CameraManager::Instance()->getViewTransfrom();
+
+	setUniform("viewMat", ShaderProgram::convertToShaderParamType(GL_FLOAT_MAT4), viewTransfrom.value());
+	setUniform("projectionMat", ShaderProgram::convertToShaderParamType(GL_FLOAT_MAT4), projectionTransfrom.value());
 
 
 	for (auto iter = m_renderDatas.begin(); iter != m_renderDatas.end(); iter++)

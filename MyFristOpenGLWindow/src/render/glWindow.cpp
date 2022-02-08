@@ -8,9 +8,13 @@ static GLFWwindow* glWnd = nullptr;
 static bool isInited = false;
 static int wndWidth = DEFAULT_Window_WIDTH;
 static int wndHeight = DEFAULT_Window_HEIGHT;
+static double lastX = DEFAULT_Window_WIDTH * 0.5;
+static double lastY = DEFAULT_Window_HEIGHT * 0.5;
+static bool enterWmd = false;
+static bool firstRecord = true;
+static bool focus = true;
 static float scaleX = 1;
 static float scaleY = 1;
-static void* (*sizeCallBack)(int, int) ;
 static std::unordered_map<int, int> events;
 
 
@@ -18,6 +22,9 @@ GLFWwindow* createWindow();
 bool initGLAD();
 void framebuffer_size_callback(GLFWwindow*, int, int);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
+void mouseEnter_callback(GLFWwindow* window, int e);
+void windowFocus_callback(GLFWwindow* window, int e);
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 void processInput(GLFWwindow*);
 
 bool glInit()
@@ -36,6 +43,9 @@ bool glInit()
 	glViewport(0, 0, 800, 600);
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 	glfwSetCursorPosCallback(window, mouse_callback);
+	glfwSetWindowFocusCallback(window, windowFocus_callback);
+	glfwSetCursorEnterCallback(window, mouseEnter_callback);
+	glfwSetScrollCallback(window, scroll_callback);
 	glWnd = window;
 	return true;
 }
@@ -51,11 +61,6 @@ void setWindowSize(int width, int height)
 	wndWidth = width;
 	wndHeight = height;
 	glfwSetWindowSize(glWnd, wndWidth, wndHeight);
-}
-
-void setWindowSizeCallBack(void* (*callback)(int, int))
-{
-	sizeCallBack = callback;
 }
 
 void glTerminate()
@@ -131,22 +136,62 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
 	scaleX = ((float)width) / DEFAULT_Window_WIDTH;
 	scaleY = ((float)height) / DEFAULT_Window_HEIGHT;
-	if (sizeCallBack)
-	{
-		sizeCallBack(width, height);
-	}
+	events[WINDOW_WIDTH] = width;
+	events[WINDOW_HEIGHT] = height;
 
 	//glViewport(0, 0, width, height);
 }
 
 void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 {
-	static double lastX = DEFAULT_Window_WIDTH * 0.5;
-	static double lastY = DEFAULT_Window_HEIGHT * 0.5;
-	double offsetX = xpos - lastX;
-	double offsetY = lastY - ypos;
-	lastX = offsetX + lastX;
-	lastY = offsetY + lastY;
-	events[MOUSE_UP] += (int)(offsetY * 1000);
-	events[MOUSE_RIGHT] += (int)(offsetX * 1000);
+	if (focus && firstRecord && enterWmd)
+	{
+		lastX = xpos;
+		lastY = ypos;
+		firstRecord = false;
+		events[MOUSE_UP] = 0;
+		events[MOUSE_RIGHT] = 0;
+	}
+	else if(focus)
+	{
+		double offsetX = lastX - xpos;
+		double offsetY = lastY - ypos;
+		lastX = xpos;
+		lastY = ypos;
+		events[MOUSE_UP] += (int)(offsetY * 1000);
+		events[MOUSE_RIGHT] += (int)(offsetX * 1000);
+	}
+}
+
+void mouseEnter_callback(GLFWwindow* window, int e)
+{
+	if (e == GLFW_FALSE)
+	{
+		enterWmd = false;
+		firstRecord = true;
+	}
+	else if (e == GLFW_TRUE)
+	{
+		enterWmd = true;
+	}
+}
+
+void windowFocus_callback(GLFWwindow* window, int e)
+{
+	if (e == GLFW_FALSE)
+	{
+		focus = false;
+	}
+	else if (e == GLFW_TRUE)
+	{
+		focus = true;
+	}
+}
+
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
+{
+	if (focus)
+	{
+		events[MOUSE_SRCOLL] += yoffset * 1000;
+	}
 }

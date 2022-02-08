@@ -11,10 +11,19 @@ public:
 	~Transfrom();
 
 	Transfrom rotate(float angle, glm::vec3 axis) const;
+	Transfrom rotate(float x, float y, float z) const;
 	Transfrom translate(glm::vec3 vector) const;
 	Transfrom scale(glm::vec3 n_scale) const;
 	Transfrom operator * (Transfrom transfrom) const;
-	void* value() const;
+	Transfrom inverse() const
+	{
+		return Transfrom(glm::inverse(m_trans));
+	}
+	glm::highp_vec4 operator [](int i)
+	{
+		return m_trans[i];
+	}
+	void* value();
 
 private:
 	glm::mat4 m_trans;
@@ -40,6 +49,8 @@ public:
 	Vector3 operator / (float scale) const;
 	Vector3& operator *= (float scale);
 	Vector3& operator /= (float scale);
+	Vector3 cross(Vector3 v);
+	Vector3 normalize();
 	bool operator==(const Vector3& vec3);
 	bool operator!=(const Vector3& vec3);
 	glm::vec3 getVec3() const;

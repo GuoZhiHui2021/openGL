@@ -32,10 +32,6 @@ public:
 	}
 protected:
     virtual void execute_implement();
-private:
-	int m_right = 0;
-	int m_front = 0;
-	int m_yaw = 0;
-	int m_pitch = 0;
+	
 };
 

@@ -3,6 +3,7 @@
 #include "sceneManager.h"
 #include <system/systemManager.h>
 #include <render/renderManager.h>
+#include <scene/cameraManager.h>
 World::World()
 {
 	last_frame_millitm = getCurMillitm() - m_timeInterval;
@@ -39,4 +40,5 @@ void World::tick()
 	SystemManager::Instance()->tick();
 	SceneManager::Instance()->update();
 	RenderManager::Instance()->update();
+	CameraManager::Instance()->setDirty();
 }

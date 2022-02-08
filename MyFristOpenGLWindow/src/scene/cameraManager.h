@@ -2,11 +2,18 @@
 #include <common/singleton.h>
 #include <common/coordinateType.h>
 #include <vector>
+
+#define MAX_ASPECT 45.0f
+#define MIN_ASPECT 1.0f
 class CameraManager :
     public Singleton<CameraManager>
 {
 public:
     Transfrom getViewTransfrom();
+
+    Transfrom calculate_lookAt_matrix(Vector3 position, Vector3 front);
+
+    Transfrom getPerspectiveTransfrom();
 
     void addCamera(uint64_t id);
     
@@ -32,11 +39,33 @@ public:
     {
         m_cameraAngularSpeed = speed;
     }
-    
+    void setAspect(float aspect);
+    float getAspect()
+    {
+        return m_aspect;
+    }
+    void setViewSize(int width,int height)
+    {
+        m_viewWidth = width;
+        m_viewHeight = height;
+        setDirty();
+    }
+    void setDirty()
+    {
+        m_dirty = true;
+    }
 private:
-    float m_cameraSpeed = 0.05f;
-    float m_cameraAngularSpeed = 0.05f;
+    float m_cameraSpeed = 2.0f;
+    float m_cameraAngularSpeed = 3.0f;
+    float m_aspect = 45.0f;
+    float m_viewWidth = 800.0f;
+    float m_viewHeight = 600.0f;
+    float m_near = 0.1f;
+    float m_far = 100.0f;
     uint64_t mMainCameraId = 0;
     std::vector<uint64_t> mCamerasId;
+    bool m_dirty = true;
+    Transfrom m_viewTransfrom;
+    Transfrom m_perspectiveTransfrom;
 };
 

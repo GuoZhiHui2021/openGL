@@ -7,7 +7,9 @@ private:
 	enum class Commond
 	{
 		_Offset = 1,
-		_OrientationOffset = 2
+		_OrientationOffset = 2,
+		_AspectOffset = 3,
+		_Size = 4
 	};
 public:
 	virtual int getOrder()
@@ -29,5 +31,11 @@ private:
 
 	template<>
 	void exe<2>(std::string exeCommand);
+
+	template<>
+	void exe<3>(std::string exeCommand);
+
+	template<>
+	void exe<4>(std::string exeCommand);
 };
 
