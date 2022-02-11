@@ -30,5 +30,6 @@ private:
     void exe<2>(std::string exeCommand);
 
     void updateRenderData(Entity* entity);
+    void updateLightData(Entity* entity);
 };
 

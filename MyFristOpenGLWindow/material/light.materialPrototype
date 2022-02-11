@@ -1,0 +1,6 @@
+vertexShader:{VERTEX_SHADER,shader/default.vs}
+fragmentShader:{FRAGMENT_SHADER,shader/default.fs}
+diffuse:{TEXTURE0,{res/texture/wall.jpg,REPEAT,REPEAT,REPEAT,REPEAT}}
+specular:{TEXTURE1,{0XFFFFFF,REPEAT,REPEAT,REPEAT,REPEAT}}
+shininess:{FLOAT,32.0}
+

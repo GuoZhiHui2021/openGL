@@ -159,11 +159,14 @@
     <ClCompile Include="src\scene\camera.cpp" />
     <ClCompile Include="src\scene\cameraManager.cpp" />
     <ClCompile Include="src\scene\component.cpp" />
+    <ClCompile Include="src\scene\directionalLightComponent.cpp" />
     <ClCompile Include="src\scene\entity.cpp" />
     <ClCompile Include="src\scene\instance.cpp" />
+    <ClCompile Include="src\scene\pointLightComponent.cpp" />
     <ClCompile Include="src\scene\renderComponent.cpp" />
     <ClCompile Include="src\scene\scene.cpp" />
     <ClCompile Include="src\scene\sceneManager.cpp" />
+    <ClCompile Include="src\scene\spotLightComponent.cpp" />
     <ClCompile Include="src\scene\transformComponent.cpp" />
     <ClCompile Include="src\scene\world.cpp" />
     <ClCompile Include="src\system\cameraControlSystem.cpp" />
@@ -174,6 +177,7 @@
     <ClCompile Include="src\system\entityRenderSystem.cpp" />
     <ClCompile Include="src\system\entityTransformSystem.cpp" />
     <ClCompile Include="src\system\inputSystem.cpp" />
+    <ClCompile Include="src\system\lightSystem.cpp" />
     <ClCompile Include="src\system\sceneSystem.cpp" />
     <ClCompile Include="src\system\system.cpp" />
     <ClCompile Include="src\system\systemManager.cpp" />
@@ -208,11 +212,14 @@
     <ClInclude Include="src\scene\camera.h" />
     <ClInclude Include="src\scene\cameraManager.h" />
     <ClInclude Include="src\scene\component.h" />
+    <ClInclude Include="src\scene\directionalLightComponent.h" />
     <ClInclude Include="src\scene\entity.h" />
     <ClInclude Include="src\scene\instance.h" />
+    <ClInclude Include="src\scene\pointLightComponent.h" />
     <ClInclude Include="src\scene\renderComponent.h" />
     <ClInclude Include="src\scene\scene.h" />
     <ClInclude Include="src\scene\sceneManager.h" />
+    <ClInclude Include="src\scene\spotLightComponent.h" />
     <ClInclude Include="src\scene\transformComponent.h" />
     <ClInclude Include="src\scene\world.h" />
     <ClInclude Include="src\system\cameraControlSystem.h" />
@@ -223,6 +230,7 @@
     <ClInclude Include="src\system\entityRenderSystem.h" />
     <ClInclude Include="src\system\entityTransformSystem.h" />
     <ClInclude Include="src\system\inputSystem.h" />
+    <ClInclude Include="src\system\lightSystem.h" />
     <ClInclude Include="src\system\sceneSystem.h" />
     <ClInclude Include="src\system\system.h" />
     <ClInclude Include="src\system\systemManager.h" />

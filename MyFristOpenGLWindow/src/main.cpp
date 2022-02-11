@@ -33,6 +33,7 @@ int main()
 		SystemManager::Instance()->pushSystemCommand(SystemCommand(3, 1, "2"));
 		SystemManager::Instance()->pushSystemCommand(SystemCommand(4, 1, "{2,1}"));
 		SystemManager::Instance()->pushSystemCommand(SystemCommand(4, 1, "{2,2}"));
+		SystemManager::Instance()->pushSystemCommand(SystemCommand(4, 1, "{2,3}"));
 		SystemManager::Instance()->pushSystemCommand(SystemCommand(6, 2, "{2,10.0f,10.0f,0.0f}"));
 		SystemManager::Instance()->pushSystemCommand(SystemCommand(6, 3, "{2,2.0f,0.0f,-5.0f}"));
 		SystemManager::Instance()->pushSystemCommand(SystemCommand(6, 4, "{2,0.0f,45.0f,0.0f}"));

@@ -177,6 +177,18 @@
     <ClCompile Include="src\system\cameraControlSystem.cpp">
       <Filter>源文件\System</Filter>
     </ClCompile>
+    <ClCompile Include="src\scene\pointLightComponent.cpp">
+      <Filter>源文件\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scene\spotLightComponent.cpp">
+      <Filter>源文件\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scene\directionalLightComponent.cpp">
+      <Filter>源文件\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="src\system\lightSystem.cpp">
+      <Filter>源文件\System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MyFristOpenGLWindow.rc">
@@ -314,6 +326,18 @@
       <Filter>头文件\Render</Filter>
     </ClInclude>
     <ClInclude Include="src\system\cameraControlSystem.h">
+      <Filter>头文件\System</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene\directionalLightComponent.h">
+      <Filter>头文件\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene\pointLightComponent.h">
+      <Filter>头文件\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene\spotLightComponent.h">
+      <Filter>头文件\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="src\system\lightSystem.h">
       <Filter>头文件\System</Filter>
     </ClInclude>
   </ItemGroup>

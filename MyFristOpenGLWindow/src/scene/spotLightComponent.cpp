@@ -1,0 +1,1 @@
+#include "spotLightComponent.h"

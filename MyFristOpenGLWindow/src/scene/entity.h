@@ -3,6 +3,9 @@
 #include "component.h"
 #include "transformComponent.h"
 #include "renderComponent.h"
+#include "directionalLightComponent.h"
+#include "pointLightComponent.h"
+#include "spotLightComponent.h"
 #include <common/coordinateType.h>
 #include <vector>
 class Entity :public Instance
@@ -47,6 +50,15 @@ public:
 	template<>
 	RenderComponent* getComponent<RenderComponent>();
 
+	template<>
+	DirectionalLightComponent* getComponent<DirectionalLightComponent>();
+
+	template<>
+	PointLightComponent* getComponent<PointLightComponent>();
+
+	template<>
+	SpotLightComponent* getComponent<SpotLightComponent>();
+
 	template<class T>
 	bool removeComponent() { return false; }
 
@@ -56,6 +68,15 @@ public:
 	template<>
 	bool removeComponent<RenderComponent>();
 
+	template<>
+	bool removeComponent<DirectionalLightComponent>();
+
+	template<>
+	bool removeComponent<PointLightComponent>();
+
+	template<>
+	bool removeComponent<SpotLightComponent>();
+
 	template<class T>
 	bool applyComponent() { return false; }
 
@@ -64,6 +85,15 @@ public:
 
 	template<>
 	bool applyComponent<RenderComponent>();
+
+	template<>
+	bool applyComponent<DirectionalLightComponent>();
+
+	template<>
+	bool applyComponent<PointLightComponent>();
+
+	template<>
+	bool applyComponent<SpotLightComponent>();
 
 	void setSustained(bool sustained)
 	{

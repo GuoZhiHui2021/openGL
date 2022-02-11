@@ -130,7 +130,6 @@ void CameraControlSystem::exe<2>(std::string exeCommand)
 				float y = r.getVec3().y + offset.getVec3().y * interval / 1000.0f;
 				x = x < -89.0f ? -89.0f : x>89.0f ? 89.0f:x;
 				char commandStr[127];
-				printf("x:%f,y:%f\n", x, y);
 				sprintf_s(commandStr, "{%llu,%f,%f,%f}", id, x, y, 0.0f);
 				SystemManager::Instance()->pushSystemCommand(SystemCommand(6, 4, commandStr));
 			}

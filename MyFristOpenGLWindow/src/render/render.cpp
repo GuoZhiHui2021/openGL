@@ -3,6 +3,7 @@
 #include "fragmentShader.h"
 #include "shaderManager.h"
 #include "textureManager.h"
+#include "renderManager.h"
 #include <scene/cameraManager.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -68,7 +69,87 @@ void Render::render()
 
 	setUniform("viewMat", ShaderProgram::convertToShaderParamType(GL_FLOAT_MAT4), viewTransfrom.value());
 	setUniform("projectionMat", ShaderProgram::convertToShaderParamType(GL_FLOAT_MAT4), projectionTransfrom.value());
+	auto directionalLightDatas = RenderManager::Instance()->getDirectionalLightDatas();
+	auto pointLightDatas = RenderManager::Instance()->getPointLightData();
+	auto spotLightDatas = RenderManager::Instance()->getSpotLightData();
 
+	//directionalLight
+	int dirCount = directionalLightDatas.size();
+	setUniform("directionalLightDataCount", ShaderProgram::convertToShaderParamType(GL_INT), &dirCount);
+	for (int i = 0; i < dirCount; i++)
+	{
+		char s[127];
+		sprintf_s(s, "directionalLights[%d]", i);
+
+		strcpy_s(s + strlen(s), strlen(".ambient")+1, ".ambient");
+		setUniform(s, ShaderProgram::convertToShaderParamType(GL_FLOAT_VEC3), directionalLightDatas[i].ambient);
+
+		strcpy_s(s + strlen(s), strlen(".diffuse")+1, ".diffuse");
+		setUniform(s, ShaderProgram::convertToShaderParamType(GL_FLOAT_VEC3), directionalLightDatas[i].diffuse);
+
+		strcpy_s(s + strlen(s), strlen(".specular")+1, ".specular");
+		setUniform(s, ShaderProgram::convertToShaderParamType(GL_FLOAT_VEC3), directionalLightDatas[i].specular);
+
+		strcpy_s(s + strlen(s), strlen(".direction")+1, ".direction");
+		setUniform(s, ShaderProgram::convertToShaderParamType(GL_FLOAT_VEC3), directionalLightDatas[i].direction);
+	}
+
+	//pointLight
+	int pointCount = pointLightDatas.size();
+	setUniform("pointLightDataCount", ShaderProgram::convertToShaderParamType(GL_INT), &pointCount);
+	for (int i = 0; i < pointCount; i++)
+	{
+		char s[127];
+		sprintf_s(s, "pointLights[%d]", i);
+
+		strcpy_s(s + strlen(s), strlen(".ambient")+1, ".ambient");
+		setUniform(s, ShaderProgram::convertToShaderParamType(GL_FLOAT_VEC3), pointLightDatas[i].ambient);
+
+		strcpy_s(s + strlen(s), strlen(".diffuse")+1, ".diffuse");
+		setUniform(s, ShaderProgram::convertToShaderParamType(GL_FLOAT_VEC3), pointLightDatas[i].diffuse);
+
+		strcpy_s(s + strlen(s), strlen(".specular")+1, ".specular");
+		setUniform(s, ShaderProgram::convertToShaderParamType(GL_FLOAT_VEC3), pointLightDatas[i].specular);
+
+		strcpy_s(s + strlen(s), strlen(".position")+1, ".position");
+		setUniform(s, ShaderProgram::convertToShaderParamType(GL_FLOAT_VEC3), pointLightDatas[i].position);
+
+		strcpy_s(s + strlen(s), strlen(".constant")+1, ".constant");
+		setUniform(s, ShaderProgram::convertToShaderParamType(GL_FLOAT), &(pointLightDatas[i].constant));
+
+		strcpy_s(s + strlen(s), strlen(".linear")+1, ".linear");
+		setUniform(s, ShaderProgram::convertToShaderParamType(GL_FLOAT), &(pointLightDatas[i].linear));
+
+		strcpy_s(s + strlen(s), strlen(".quadratic")+1, ".quadratic");
+		setUniform(s, ShaderProgram::convertToShaderParamType(GL_FLOAT), &(pointLightDatas[i].quadratic));
+	}
+
+	//spotLight
+	int spotCount = spotLightDatas.size();
+	setUniform("spotLightDataCount", ShaderProgram::convertToShaderParamType(GL_INT), &spotCount);
+	for (int i = 0; i < spotCount; i++)
+	{
+		char s[127];
+		sprintf_s(s, "spotLights[%d]", i);
+
+		strcpy_s(s + strlen(s), strlen(".ambient")+1, ".ambient");
+		setUniform(s, ShaderProgram::convertToShaderParamType(GL_FLOAT_VEC3), spotLightDatas[i].ambient);
+
+		strcpy_s(s + strlen(s), strlen(".diffuse")+1, ".diffuse");
+		setUniform(s, ShaderProgram::convertToShaderParamType(GL_FLOAT_VEC3), spotLightDatas[i].diffuse);
+
+		strcpy_s(s + strlen(s), strlen(".specular")+1, ".specular");
+		setUniform(s, ShaderProgram::convertToShaderParamType(GL_FLOAT_VEC3), spotLightDatas[i].specular);
+
+		strcpy_s(s + strlen(s), strlen(".position")+1, ".position");
+		setUniform(s, ShaderProgram::convertToShaderParamType(GL_FLOAT_VEC3), spotLightDatas[i].position);
+
+		strcpy_s(s + strlen(s), strlen(".direction")+1, ".direction");
+		setUniform(s, ShaderProgram::convertToShaderParamType(GL_FLOAT_VEC3), spotLightDatas[i].direction);
+
+		strcpy_s(s + strlen(s), strlen(".cutOff")+1, ".cutOff");
+		setUniform(s, ShaderProgram::convertToShaderParamType(GL_FLOAT), &(spotLightDatas[i].cutOff));
+	}
 
 	for (auto iter = m_renderDatas.begin(); iter != m_renderDatas.end(); iter++)
 	{

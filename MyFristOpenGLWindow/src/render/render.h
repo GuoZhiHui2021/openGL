@@ -81,6 +81,33 @@ struct RenderData
 	}
 };
 
+struct BaseLightData
+{
+	float ambient[3] = { 0 };
+	float diffuse[3] = { 0 };
+	float specular[3] = { 0 };
+};
+
+struct DirectionalLightData :public BaseLightData
+{
+	float direction[3] = { 0 };
+};
+
+struct PointLightData :public BaseLightData
+{
+	float position[3] = { 0 };
+	float constant = 0;
+	float linear = 0;
+	float quadratic = 0;
+};
+
+struct SpotLightData :public BaseLightData
+{
+	float position[3] = { 0 };
+	float direction[3] = { 0 };
+	float cutOff = 0;
+};
+
 class Render
 {
 protected:

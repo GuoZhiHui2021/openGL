@@ -42,6 +42,9 @@ void EntityComponentSystem::exe<1>(std::string exeCommand)
 			{
 			case static_cast<int64_t>(ComponentType::_TransformComponent):entity->applyComponent<TransformComponent>(); break;
 			case static_cast<int64_t>(ComponentType::_RenderComponent):entity->applyComponent<RenderComponent>(); break;
+			case static_cast<int64_t>(ComponentType::_DirectionalLightComponent):entity->applyComponent<DirectionalLightComponent>(); break;
+			case static_cast<int64_t>(ComponentType::_PointLightComponent):entity->applyComponent<PointLightComponent>(); break;
+			case static_cast<int64_t>(ComponentType::_SpotLightComponent):entity->applyComponent<SpotLightComponent>(); break;
 			default:
 				break;
 			}

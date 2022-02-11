@@ -95,4 +95,5 @@ void RenderManager::update()
 		iter++;
 		destory(id);
 	}
+	clearLights();
 }

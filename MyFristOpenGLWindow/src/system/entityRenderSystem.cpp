@@ -5,6 +5,9 @@
 #include <scene/world.h>
 #include <scene/transformComponent.h>
 #include <scene/renderComponent.h>
+#include <scene/directionalLightComponent.h>
+#include <scene/pointLightComponent.h>
+#include <scene/spotLightComponent.h>
 #include <common/fileUtil.h>
 #include <common/util.h>
 #include <queue>
@@ -39,6 +42,7 @@ void EntityRenderSystem::execute_implement()
 		auto interval = World::Instance()->getTickInterval();
 		for (Entity* entity : scene->getEntities())
 		{
+			updateLightData(entity);
 			updateRenderData(entity);
 		}
 	}
@@ -150,6 +154,61 @@ void EntityRenderSystem::updateRenderData(Entity* entity)
 			delete data;
 			return;
 		}
+	}
+}
+
+void EntityRenderSystem::updateLightData(Entity* entity)
+{
+	auto d_component = entity->getComponent<DirectionalLightComponent>();
+	auto p_component = entity->getComponent<PointLightComponent>();
+	auto s_component = entity->getComponent<SpotLightComponent>();
+	if (d_component)
+	{
+		DirectionalLightData data;
+		memcpy_s(data.ambient, sizeof(float) * 3, d_component->getAmbient().value(), sizeof(float) * 3);
+		memcpy_s(data.diffuse, sizeof(float) * 3, d_component->getDiffuse().value(), sizeof(float) * 3);
+		memcpy_s(data.specular, sizeof(float) * 3, d_component->getSpecular().value(), sizeof(float) * 3);
+		memcpy_s(data.direction, sizeof(float) * 3, d_component->getDirection().value(), sizeof(float) * 3);
+		RenderManager::Instance()->addDirectionalLightData(data);
+	}
+	if (p_component)
+	{
+		PointLightData data;
+		memcpy_s(data.ambient, sizeof(float) * 3, p_component->getAmbient().value(), sizeof(float) * 3);
+		memcpy_s(data.diffuse, sizeof(float) * 3, p_component->getDiffuse().value(), sizeof(float) * 3);
+		memcpy_s(data.specular, sizeof(float) * 3, p_component->getSpecular().value(), sizeof(float) * 3);
+		Transfrom t;
+		auto t_component = entity->getComponent<TransformComponent>();
+		if (t_component)
+		{
+			t = t_component->getWorldTransfrom();
+		}
+		data.position[0] = t[3].x;
+		data.position[1] = t[3].y;
+		data.position[2] = t[3].z;
+		data.constant = p_component->getConstant();
+		data.linear = p_component->getLinear();
+		data.quadratic = p_component->getQuadratic();
+		RenderManager::Instance()->addPointLightData(data);
+	}
+	if (s_component)
+	{
+		SpotLightData data;
+		memcpy_s(data.ambient, sizeof(float) * 3, s_component->getAmbient().value(), sizeof(float) * 3);
+		memcpy_s(data.diffuse, sizeof(float) * 3, s_component->getDiffuse().value(), sizeof(float) * 3);
+		memcpy_s(data.specular, sizeof(float) * 3, s_component->getSpecular().value(), sizeof(float) * 3);
+		data.cutOff = s_component->getCutOff();
+		Transfrom t;
+		auto t_component = entity->getComponent<TransformComponent>();
+		if (t_component)
+		{
+			t = t_component->getWorldTransfrom();
+		}
+		data.position[0] = t[3].x;
+		data.position[1] = t[3].y;
+		data.position[2] = t[3].z;
+		memcpy_s(data.direction, sizeof(float) * 3, Vector3(t[2].x, t[2].y, t[2].z).normalize().value(), sizeof(float) * 3);
+		RenderManager::Instance()->addSpotLightData(data);
 	}
 }
 

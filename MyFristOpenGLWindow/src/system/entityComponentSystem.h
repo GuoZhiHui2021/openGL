@@ -12,7 +12,10 @@ class EntityComponentSystem :
 	{
 		
 		_TransformComponent = 1,
-		_RenderComponent
+		_RenderComponent,
+		_DirectionalLightComponent,
+		_PointLightComponent,
+		_SpotLightComponent
 	};
 public:
 	virtual int getOrder()
