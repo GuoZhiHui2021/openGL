@@ -235,6 +235,20 @@
     <ClInclude Include="src\system\system.h" />
     <ClInclude Include="src\system\systemManager.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="material\default.materialPrototype" />
+    <None Include="material\light.materialPrototype" />
+    <None Include="shader\default.fs" />
+    <None Include="shader\default.vs" />
+    <None Include="shader\light.fs" />
+    <None Include="shader\light.vs" />
+    <None Include="shader\panel.fs" />
+    <None Include="shader\panel.vs" />
+    <None Include="shader\texture.fs" />
+    <None Include="shader\texture.vs" />
+    <None Include="shader\texture1.fs" />
+    <None Include="shader\transform.vs" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

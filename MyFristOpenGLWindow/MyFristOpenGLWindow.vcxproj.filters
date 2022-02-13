@@ -49,6 +49,12 @@
     <Filter Include="源文件\Common">
       <UniqueIdentifier>{df62ed8e-be3d-412d-bc91-46d536ff3a7d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="资源文件\Material">
+      <UniqueIdentifier>{1aac6789-2b93-4267-8243-be70bb8ee14f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="资源文件\Shader">
+      <UniqueIdentifier>{a4369d15-8a1f-4e0c-a6ef-d634a708f0ac}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -340,5 +346,43 @@
     <ClInclude Include="src\system\lightSystem.h">
       <Filter>头文件\System</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="material\default.materialPrototype">
+      <Filter>资源文件\Material</Filter>
+    </None>
+    <None Include="material\light.materialPrototype">
+      <Filter>资源文件\Material</Filter>
+    </None>
+    <None Include="shader\default.fs">
+      <Filter>资源文件\Shader</Filter>
+    </None>
+    <None Include="shader\default.vs">
+      <Filter>资源文件\Shader</Filter>
+    </None>
+    <None Include="shader\light.fs">
+      <Filter>资源文件\Shader</Filter>
+    </None>
+    <None Include="shader\light.vs">
+      <Filter>资源文件\Shader</Filter>
+    </None>
+    <None Include="shader\panel.fs">
+      <Filter>资源文件\Shader</Filter>
+    </None>
+    <None Include="shader\panel.vs">
+      <Filter>资源文件\Shader</Filter>
+    </None>
+    <None Include="shader\texture.fs">
+      <Filter>资源文件\Shader</Filter>
+    </None>
+    <None Include="shader\texture.vs">
+      <Filter>资源文件\Shader</Filter>
+    </None>
+    <None Include="shader\texture1.fs">
+      <Filter>资源文件\Shader</Filter>
+    </None>
+    <None Include="shader\transform.vs">
+      <Filter>资源文件\Shader</Filter>
+    </None>
   </ItemGroup>
 </Project>

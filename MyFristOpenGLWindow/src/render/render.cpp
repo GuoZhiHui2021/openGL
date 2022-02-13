@@ -226,6 +226,8 @@ void Render::loadData(RenderData * data)
 		p_size += 3;
 	if (data->useAlpha)
 		p_size += 1;
+	//normal
+	p_size += 3;
 	for (size_t i = 0; i < sizeof(data->useUV); i++)
 	{
 		if (data->useUV[i])
@@ -250,12 +252,17 @@ void Render::loadData(RenderData * data)
 		glEnableVertexAttribArray(2);
 		c_size += 1;
 	}
+	//normal
+	c_size += 3;
+	glVertexAttribPointer(3 , 3, GL_FLOAT, GL_FALSE, p_size * sizeof(float), (void*)(c_size * sizeof(float)));
+	glEnableVertexAttribArray(3);
+
 	for (size_t i = 0;i < sizeof(data->useUV); i++)
 	{
 		if (data->useUV[i])
 		{
-			glVertexAttribPointer(3 + i, 2, GL_FLOAT, GL_FALSE, p_size * sizeof(float), (void*)(c_size * sizeof(float)));
-			glEnableVertexAttribArray(3+i);
+			glVertexAttribPointer(4 + i, 2, GL_FLOAT, GL_FALSE, p_size * sizeof(float), (void*)(c_size * sizeof(float)));
+			glEnableVertexAttribArray(4 + i);
 			c_size += 2;
 		}
 	}
