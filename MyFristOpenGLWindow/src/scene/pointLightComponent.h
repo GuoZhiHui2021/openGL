@@ -62,13 +62,21 @@ public:
     {
         return m_quadratic;
     }
-
+    void setStrength(float strength)
+    {
+        m_strength = strength;
+    }
+    float getStrength()
+    {
+        return m_strength;
+    }
 private:
-    Vector3 m_ambient = { 1,1,1 };
-    Vector3 m_diffuse = { 1,1,1 };
+    Vector3 m_ambient = { 0,0,0 };
+    Vector3 m_diffuse = { 0.8,0.8,0.8 };
     Vector3 m_specular = { 1,1,1 };
 
     float m_constant = 1.0f;//常数项
     float m_linear = 0.09f;//一次项
     float m_quadratic = 0.032f;//二次项
+    float m_strength = 0.8f;
 };

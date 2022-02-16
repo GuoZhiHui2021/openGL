@@ -11,6 +11,10 @@ class CameraManager :
 public:
     Transfrom getViewTransfrom();
 
+    Vector3 getMainCameraPosition();
+
+    Vector3 getMainCameraDirection();
+
     Transfrom calculate_lookAt_matrix(Vector3 position, Vector3 front);
 
     Transfrom getPerspectiveTransfrom();
@@ -52,7 +56,9 @@ public:
     }
     void setDirty()
     {
-        m_dirty = true;
+        m_viewTransfromDirty = true;
+        m_cameraPositionDirty = true;
+        m_cameraDirectionDirty = true;
     }
 private:
     float m_cameraSpeed = 2.0f;
@@ -64,8 +70,12 @@ private:
     float m_far = 100.0f;
     uint64_t mMainCameraId = 0;
     std::vector<uint64_t> mCamerasId;
-    bool m_dirty = true;
+    bool m_viewTransfromDirty = true;
+    bool m_cameraPositionDirty = true;
+    bool m_cameraDirectionDirty = true;
     Transfrom m_viewTransfrom;
     Transfrom m_perspectiveTransfrom;
+    Vector3 m_cameraPosition;
+    Vector3 m_cameraDirection;
 };
 

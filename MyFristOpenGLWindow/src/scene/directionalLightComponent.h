@@ -44,11 +44,20 @@ public:
     {
         return m_specular;
     }
+    void setStrength(float strength)
+    {
+        m_strength = strength;
+    }
+    float getStrength()
+    {
+        return m_strength;
+    }
 
 private:
-    Vector3 m_direction = { 0,0.70710678,0.70710678 };
-    Vector3 m_ambient = { 1,1,1 };//环境光
-    Vector3 m_diffuse = { 1,1,1 };//漫反射
+    Vector3 m_direction = { -0.70710678,0,0.70710678 };
+    Vector3 m_ambient = { 0.5,0.5,0.5 };//环境光
+    Vector3 m_diffuse = { 0.8,0.8,0.8 };//漫反射
     Vector3 m_specular = { 1,1,1 };//镜面反射
+    float m_strength = 0.8f;
 };
 

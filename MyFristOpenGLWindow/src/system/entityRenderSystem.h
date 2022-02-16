@@ -31,5 +31,6 @@ private:
 
     void updateRenderData(Entity* entity);
     void updateLightData(Entity* entity);
+    void updateLightRenderData(Entity* entity,Vector3 color);
 };
 

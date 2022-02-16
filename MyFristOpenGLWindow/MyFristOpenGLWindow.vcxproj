@@ -236,18 +236,22 @@
     <ClInclude Include="src\system\systemManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="material\boxPhong.material" />
     <None Include="material\default.materialPrototype" />
     <None Include="material\light.materialPrototype" />
-    <None Include="shader\default.fs" />
-    <None Include="shader\default.vs" />
-    <None Include="shader\light.fs" />
-    <None Include="shader\light.vs" />
-    <None Include="shader\panel.fs" />
-    <None Include="shader\panel.vs" />
-    <None Include="shader\texture.fs" />
-    <None Include="shader\texture.vs" />
-    <None Include="shader\texture1.fs" />
-    <None Include="shader\transform.vs" />
+    <None Include="material\phong.materialPrototype" />
+    <None Include="shader\default.frag" />
+    <None Include="shader\default.vert" />
+    <None Include="shader\light.frag" />
+    <None Include="shader\light.vert" />
+    <None Include="shader\phong.frag" />
+    <None Include="shader\phong.vert" />
+    <None Include="shader\panel.frag" />
+    <None Include="shader\panel.vert" />
+    <None Include="shader\texture.frag" />
+    <None Include="shader\texture.vert" />
+    <None Include="shader\texture1.frag" />
+    <None Include="shader\transform.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

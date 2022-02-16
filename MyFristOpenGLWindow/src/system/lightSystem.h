@@ -1,5 +1,11 @@
 #pragma once
 #include "system.h"
+
+#define MAX_CUTOFF  45.0f
+#define MIN_CUTOFF  12.0f
+#define MAX_OUT_CUTOFF  60.0f
+#define MIN_OUT_CUTOFF  15.0f
+
 class LightSystem :
     public System
 {
@@ -10,6 +16,7 @@ private:
         _DirectionalLightDiffuse,
         _DirectionalLightSpecular,
         _DirectionalLightDirection,
+        
 
         _PointLightAmbient,
         _PointLightDiffuse,
@@ -17,11 +24,17 @@ private:
         _PointLightConstant,
         _PointLightLinear,
         _PointLightQuadratic,
+       
 
         _SpotLightAmbient,
         _SpotLightDiffuse,
         _SpotLightSpecular,
         _SpotLightCutOff,
+        _SpotLightOutCutOff,
+
+        _DirectionalLightStrength,
+        _PointLightStrength,
+        _SpotLightStrength
     };
 public:
     virtual int getOrder()
@@ -66,5 +79,13 @@ private:
     void exe<13>(std::string exeCommand);
     template<>
     void exe<14>(std::string exeCommand);
+    template<>
+    void exe<15>(std::string exeCommand);
+    template<>
+    void exe<16>(std::string exeCommand);
+    template<>
+    void exe<17>(std::string exeCommand);
+    template<>
+    void exe<18>(std::string exeCommand);
 };
 

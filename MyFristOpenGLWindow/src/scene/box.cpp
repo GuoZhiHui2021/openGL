@@ -18,7 +18,7 @@ void* Box::getRenderVerticesBuffer(unsigned int& verticesCount)
 		Vector3 p = m_vposition[m_indices[i]];
 		size_t u = i % 6 * 2;
 		size_t v = u + 1;
-		size_t normal = i % 6 * 2;
+		size_t normal = i / 6 * 3;
 		*(buffer + i * 8) = p.getVec3().x;
 		*(buffer + i * 8 + 1) = p.getVec3().y;
 		*(buffer + i * 8 + 2) = p.getVec3().z;

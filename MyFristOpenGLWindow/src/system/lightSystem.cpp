@@ -57,6 +57,10 @@ void LightSystem::execute_implement()
 		case (uint16_t)Commond::_SpotLightDiffuse:exe<12>(m_commands[i].m_data); break;
 		case (uint16_t)Commond::_SpotLightSpecular:exe<13>(m_commands[i].m_data); break;
 		case (uint16_t)Commond::_SpotLightCutOff:exe<14>(m_commands[i].m_data); break;
+		case (uint16_t)Commond::_SpotLightOutCutOff:exe<15>(m_commands[i].m_data); break;
+		case (uint16_t)Commond::_DirectionalLightStrength:exe<16>(m_commands[i].m_data); break;
+		case (uint16_t)Commond::_PointLightStrength:exe<17>(m_commands[i].m_data); break;
+		case (uint16_t)Commond::_SpotLightStrength:exe<18>(m_commands[i].m_data); break;
 		default:
 			break;
 		}
@@ -278,7 +282,71 @@ void LightSystem::exe<14>(std::string exeCommand)
 		{
 			auto component = entity->getComponent<SpotLightComponent>();
 			if (component)
-				component->setCutOff(value);
+				component->setCutOff(std::clamp(value, MIN_CUTOFF, MAX_CUTOFF));
+		}
+	}
+}
+
+template<>
+void LightSystem::exe<15>(std::string exeCommand)
+{
+	int64_t id = 0;
+	float value;
+	if (getFloatValue(exeCommand, id, value))
+	{
+		if (auto entity = getEntity(id))
+		{
+			auto component = entity->getComponent<SpotLightComponent>();
+			if (component)
+				component->setOutCutOff(std::clamp(value,MIN_OUT_CUTOFF,MAX_OUT_CUTOFF));
+		}
+	}
+}
+
+template<>
+void LightSystem::exe<16>(std::string exeCommand)
+{
+	int64_t id = 0;
+	float value;
+	if (getFloatValue(exeCommand, id, value))
+	{
+		if (auto entity = getEntity(id))
+		{
+			auto component = entity->getComponent<DirectionalLightComponent>();
+			if (component)
+				component->setStrength(max(value, 0.0f));
+		}
+	}
+}
+
+template<>
+void LightSystem::exe<17>(std::string exeCommand)
+{
+	int64_t id = 0;
+	float value;
+	if (getFloatValue(exeCommand, id, value))
+	{
+		if (auto entity = getEntity(id))
+		{
+			auto component = entity->getComponent<PointLightComponent>();
+			if (component)
+				component->setStrength(max(value, 0.0f));
+		}
+	}
+}
+
+template<>
+void LightSystem::exe<18>(std::string exeCommand)
+{
+	int64_t id = 0;
+	float value;
+	if (getFloatValue(exeCommand, id, value))
+	{
+		if (auto entity = getEntity(id))
+		{
+			auto component = entity->getComponent<SpotLightComponent>();
+			if (component)
+				component->setStrength(max(value, 0.0f));
 		}
 	}
 }

@@ -37,6 +37,12 @@ MaterialPrototype* MaterialManager::getOrCreateMaterialPrototype(std::string nam
     MaterialPrototype* prototype = new MaterialPrototype(name);
     for (auto line : lines)
     {
+        std::string t_line = line;
+        removeHTSpaces(t_line);
+        if (t_line.empty())
+        {
+            continue;
+        }
         std::vector<std::string> k_v = splitStr(line, ":");
         if (k_v.size() != 2)
             return nullptr;
@@ -108,11 +114,20 @@ Material* MaterialManager::getOrCreateMaterial(std::string name)
         for (size_t i = 1;i<lines.size();i++)
         {
             std::string line = lines[i];
+            std::string t_line = line;
+            removeHTSpaces(t_line);
+            if (t_line.empty())
+            {
+                continue;
+            }
             std::vector<std::string> strs = splitStr(line, ":");
             if (strs.size() != 2)
                 return nullptr;
             uint16_t type = prototype->getAttrType(strs[0]);
-            void* value = deserialization(type, strs[1]);
+            std::vector<std::string> slstrs = splitLevelStr(strs[1].substr(1, strs[1].length() - 2), ",");
+            if (slstrs.size() != 2)
+                return nullptr;
+            void* value = deserialization(type, slstrs[1]);
             if (!value or !material->setAttribute(strs[0], value))
             {
                 if (value)

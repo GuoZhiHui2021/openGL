@@ -351,38 +351,50 @@
     <None Include="material\default.materialPrototype">
       <Filter>资源文件\Material</Filter>
     </None>
+    <None Include="material\phong.materialPrototype">
+      <Filter>资源文件\Material</Filter>
+    </None>
+    <None Include="shader\default.frag">
+      <Filter>资源文件\Shader</Filter>
+    </None>
+    <None Include="shader\default.vert">
+      <Filter>资源文件\Shader</Filter>
+    </None>
+    <None Include="shader\phong.frag">
+      <Filter>资源文件\Shader</Filter>
+    </None>
+    <None Include="shader\phong.vert">
+      <Filter>资源文件\Shader</Filter>
+    </None>
+    <None Include="shader\panel.frag">
+      <Filter>资源文件\Shader</Filter>
+    </None>
+    <None Include="shader\panel.vert">
+      <Filter>资源文件\Shader</Filter>
+    </None>
+    <None Include="shader\texture.frag">
+      <Filter>资源文件\Shader</Filter>
+    </None>
+    <None Include="shader\texture.vert">
+      <Filter>资源文件\Shader</Filter>
+    </None>
+    <None Include="shader\texture1.frag">
+      <Filter>资源文件\Shader</Filter>
+    </None>
+    <None Include="shader\transform.vert">
+      <Filter>资源文件\Shader</Filter>
+    </None>
     <None Include="material\light.materialPrototype">
       <Filter>资源文件\Material</Filter>
     </None>
-    <None Include="shader\default.fs">
+    <None Include="shader\light.frag">
       <Filter>资源文件\Shader</Filter>
     </None>
-    <None Include="shader\default.vs">
+    <None Include="shader\light.vert">
       <Filter>资源文件\Shader</Filter>
     </None>
-    <None Include="shader\light.fs">
-      <Filter>资源文件\Shader</Filter>
-    </None>
-    <None Include="shader\light.vs">
-      <Filter>资源文件\Shader</Filter>
-    </None>
-    <None Include="shader\panel.fs">
-      <Filter>资源文件\Shader</Filter>
-    </None>
-    <None Include="shader\panel.vs">
-      <Filter>资源文件\Shader</Filter>
-    </None>
-    <None Include="shader\texture.fs">
-      <Filter>资源文件\Shader</Filter>
-    </None>
-    <None Include="shader\texture.vs">
-      <Filter>资源文件\Shader</Filter>
-    </None>
-    <None Include="shader\texture1.fs">
-      <Filter>资源文件\Shader</Filter>
-    </None>
-    <None Include="shader\transform.vs">
-      <Filter>资源文件\Shader</Filter>
+    <None Include="material\boxPhong.material">
+      <Filter>资源文件\Material</Filter>
     </None>
   </ItemGroup>
 </Project>

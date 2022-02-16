@@ -8,6 +8,7 @@
 #include "entityRenderSystem.h"
 #include "cameraControlSystem.h"
 #include "entityDestorySystem.h"
+#include "lightSystem.h"
 #include <algorithm>
 SystemManager::SystemManager()
 {
@@ -20,6 +21,7 @@ SystemManager::SystemManager()
 	add(new EntityRenderSystem());
 	add(new CameraControlSystem());
 	add(new EntityDestorySystem());
+	add(new LightSystem());
 }
 
 SystemManager::~SystemManager()

@@ -1,0 +1,6 @@
+vertexShader:{VERTEX_SHADER,shader/phong.vert}
+fragmentShader:{FRAGMENT_SHADER,shader/phong.frag}
+diffuse:{TEXTURE0,{0XFFFFFFFF,REPEAT,REPEAT,REPEAT,REPEAT}}
+specular:{TEXTURE1,{0XFFFFFFFF,REPEAT,REPEAT,REPEAT,REPEAT}}
+shininess:{FLOAT,32.0}
+

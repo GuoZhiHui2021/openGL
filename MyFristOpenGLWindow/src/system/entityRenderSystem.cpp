@@ -112,6 +112,7 @@ void EntityRenderSystem::updateRenderData(Entity* entity)
 					textureName = (char*)((uint16_t*)attr.m_value + 4);
 					textures.back().textureUnit = attr.m_type;
 					memcpy_s(textures.back().texture, strlen(textureName)+1, textureName, strlen(textureName)+1);
+					memcpy_s(textures.back().name, strlen(attr.m_name.c_str()) + 1, attr.m_name.c_str(), strlen(attr.m_name.c_str()) + 1);
 					free(attr.m_value);
 					textureName = nullptr;
 					break;
@@ -169,6 +170,7 @@ void EntityRenderSystem::updateLightData(Entity* entity)
 		memcpy_s(data.diffuse, sizeof(float) * 3, d_component->getDiffuse().value(), sizeof(float) * 3);
 		memcpy_s(data.specular, sizeof(float) * 3, d_component->getSpecular().value(), sizeof(float) * 3);
 		memcpy_s(data.direction, sizeof(float) * 3, d_component->getDirection().value(), sizeof(float) * 3);
+		data.strength = d_component->getStrength();
 		RenderManager::Instance()->addDirectionalLightData(data);
 	}
 	if (p_component)
@@ -189,6 +191,7 @@ void EntityRenderSystem::updateLightData(Entity* entity)
 		data.constant = p_component->getConstant();
 		data.linear = p_component->getLinear();
 		data.quadratic = p_component->getQuadratic();
+		data.strength = p_component->getStrength();
 		RenderManager::Instance()->addPointLightData(data);
 	}
 	if (s_component)
@@ -198,6 +201,7 @@ void EntityRenderSystem::updateLightData(Entity* entity)
 		memcpy_s(data.diffuse, sizeof(float) * 3, s_component->getDiffuse().value(), sizeof(float) * 3);
 		memcpy_s(data.specular, sizeof(float) * 3, s_component->getSpecular().value(), sizeof(float) * 3);
 		data.cutOff = s_component->getCutOff();
+		data.outCutOff = s_component->getOutCutOff();
 		Transfrom t;
 		auto t_component = entity->getComponent<TransformComponent>();
 		if (t_component)
@@ -208,7 +212,124 @@ void EntityRenderSystem::updateLightData(Entity* entity)
 		data.position[1] = t[3].y;
 		data.position[2] = t[3].z;
 		memcpy_s(data.direction, sizeof(float) * 3, Vector3(t[2].x, t[2].y, t[2].z).normalize().value(), sizeof(float) * 3);
+		data.strength = s_component->getStrength();
 		RenderManager::Instance()->addSpotLightData(data);
+	}
+	if (d_component || p_component || s_component)
+	{
+		Vector3 color = d_component ? d_component->getDiffuse() : p_component ? p_component->getDiffuse() : s_component->getDiffuse();
+		updateLightRenderData(entity, color);
+	}
+}
+
+void EntityRenderSystem::updateLightRenderData(Entity* entity, Vector3 color)
+{
+	auto t_component = entity->getComponent<TransformComponent>();
+	Transfrom t;
+	if (t_component)
+		t = t_component->getTransfrom();
+	std::string material = "material/light.materialPrototype";
+	RenderData* data = new RenderData();
+	std::queue<UniformData> uniforms;
+	std::queue<TextureData> textures;
+	unsigned int verticesCount;
+	unsigned int elementsCount;
+	void* vertices = entity->getRenderVerticesBuffer(verticesCount);
+	void* elements = entity->getRenderElementsBuffer(elementsCount);
+	if (!vertices || !elements)
+	{
+		if (vertices)
+			free(vertices);
+		if (elements)
+			free(elements);
+		delete data;
+		return;
+	}
+	data->vertices = (float*)vertices;
+	data->count = verticesCount;
+	data->element = (unsigned int*)elements;
+	data->element_count = elementsCount;
+	if (Material* materialInstance = MaterialManager::Instance()->getOrCreateMaterial(material))
+	{
+		std::vector<MaterialPrototypeAttr> attrs = materialInstance->getAttrs();
+		for (auto attr : attrs)
+		{
+			char* textureName;
+			switch (attr.m_type)
+			{
+			case GL_INT:
+			case GL_FLOAT:
+			case GL_FLOAT_VEC2:
+			case GL_FLOAT_VEC3:
+			case GL_FLOAT_VEC4:
+				uniforms.emplace();
+				uniforms.back().m_data = attr.m_value;
+				uniforms.back().m_type = attr.m_type;
+				memcpy_s(uniforms.back().m_name, strlen(attr.m_name.c_str()) + 1, attr.m_name.c_str(), strlen(attr.m_name.c_str()) + 1);
+				break;
+			case GL_TEXTURE0:
+			case GL_TEXTURE1:
+			case GL_TEXTURE2:
+			case GL_TEXTURE3:
+			case GL_TEXTURE4:
+			case GL_TEXTURE5:
+			case GL_TEXTURE6:
+			case GL_TEXTURE7:
+				textures.emplace();
+				for (size_t i = 0; i < 4; i++)
+				{
+					textures.back().options[i] = *((uint16_t*)attr.m_value + i);
+				}
+				textureName = (char*)((uint16_t*)attr.m_value + 4);
+				textures.back().textureUnit = attr.m_type;
+				memcpy_s(textures.back().texture, strlen(textureName) + 1, textureName, strlen(textureName) + 1);
+				free(attr.m_value);
+				textureName = nullptr;
+				break;
+			default:
+				break;
+			}
+		}
+		data->id = entity->getInstanceId();
+		data->prototype = materialInstance->getPrototype();
+		data->uniformSize = uniforms.size() + 1;
+		data->uniforms = (UniformData*)malloc(sizeof(UniformData) * data->uniformSize);
+		data->textureSize = textures.size();
+		data->textures = (TextureData*)malloc(sizeof(TextureData) * data->textureSize);
+		data->useUV[0] = true;
+		if (data->uniforms)
+		{
+			size_t i = 0;
+			while (!uniforms.empty())
+			{
+				memcpy_s(data->uniforms + i, sizeof(UniformData), &uniforms.front(), sizeof(UniformData));
+				data->uniforms[i++].m_data = uniforms.front().m_data;
+				uniforms.front().m_data = nullptr;
+				uniforms.pop();
+			}
+		}
+		//light color
+		data->uniforms[data->uniformSize - 1].m_type = GL_FLOAT_VEC3;
+		strcpy_s(data->uniforms[data->uniformSize - 1].m_name, strlen("lightColor") + 1, "lightColor");
+		data->uniforms[data->uniformSize - 1].m_data = malloc(sizeof(float) * 3); color.value();
+		memcpy_s(data->uniforms[data->uniformSize - 1].m_data, sizeof(float) * 3, color.value(), sizeof(float) * 3);
+
+		if (data->textures)
+		{
+			size_t i = 0;
+			while (!textures.empty())
+			{
+				memcpy_s(data->textures + i++, sizeof(TextureData), &textures.front(), sizeof(TextureData));
+				textures.pop();
+			}
+		}
+		memcpy_s(data->transform, sizeof(float) * 16, t.value(), sizeof(float) * 16);
+		RenderManager::Instance()->updateRenderData(data);
+	}
+	else
+	{
+		delete data;
+		return;
 	}
 }
 

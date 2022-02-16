@@ -28,3 +28,111 @@ Transfrom Camera::LookAt(Vector3 pos, Vector3 front, Vector3 up)
 			glm::vec4(0.0f, 0.0f, 0.0f, 1.0f));
 	return Transfrom(m);
 }
+
+template<>
+DirectionalLightComponent* Camera::getComponent<DirectionalLightComponent>()
+{
+	for (auto component : m_components)
+	{
+		if (component->getComponentTypeName() == "DirectionalLightComponent")
+			return (DirectionalLightComponent*)component;
+	}
+	return nullptr;
+}
+
+template<>
+PointLightComponent* Camera::getComponent<PointLightComponent>()
+{
+	for (auto component : m_components)
+	{
+		if (component->getComponentTypeName() == "PointLightComponent")
+			return (PointLightComponent*)component;
+	}
+	return nullptr;
+}
+
+template<>
+SpotLightComponent* Camera::getComponent<SpotLightComponent>()
+{
+	for (auto component : m_components)
+	{
+		if (component->getComponentTypeName() == "SpotLightComponent")
+			return (SpotLightComponent*)component;
+	}
+	return nullptr;
+}
+
+template<>
+bool Camera::removeComponent<DirectionalLightComponent>()
+{
+	auto iter = m_components.begin();
+	while (iter != m_components.end())
+	{
+		Component* component = *iter;
+		if (component->getComponentTypeName() == "DirectionalLightComponent")
+		{
+			m_components.erase(iter);
+			return true;
+		}
+	}
+	return false;
+}
+
+template<>
+bool Camera::removeComponent<PointLightComponent>()
+{
+	auto iter = m_components.begin();
+	while (iter != m_components.end())
+	{
+		Component* component = *iter;
+		if (component->getComponentTypeName() == "PointLightComponent")
+		{
+			m_components.erase(iter);
+			return true;
+		}
+	}
+	return false;
+}
+
+template<>
+bool Camera::removeComponent<SpotLightComponent>()
+{
+	auto iter = m_components.begin();
+	while (iter != m_components.end())
+	{
+		Component* component = *iter;
+		if (component->getComponentTypeName() == "SpotLightComponent")
+		{
+			m_components.erase(iter);
+			return true;
+		}
+	}
+	return false;
+}
+
+template<>
+bool Camera::applyComponent<DirectionalLightComponent>()
+{
+	if (getComponent<DirectionalLightComponent>())
+		return false;
+	m_components.push_back(new DirectionalLightComponent());
+	return true;
+}
+
+template<>
+bool Camera::applyComponent<PointLightComponent>()
+{
+	if (getComponent<PointLightComponent>())
+		return false;
+	m_components.push_back(new PointLightComponent());
+	return true;
+}
+
+template<>
+bool Camera::applyComponent<SpotLightComponent>()
+{
+	if (getComponent<SpotLightComponent>())
+		return false;
+	m_components.push_back(new SpotLightComponent());
+	return true;
+}

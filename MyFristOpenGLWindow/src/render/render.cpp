@@ -66,9 +66,11 @@ void Render::render()
 
 	Transfrom projectionTransfrom = CameraManager::Instance()->getPerspectiveTransfrom();
 	Transfrom viewTransfrom = CameraManager::Instance()->getViewTransfrom();
+	Vector3 cameraDirection = CameraManager::Instance()->getMainCameraDirection();
 
 	setUniform("viewMat", ShaderProgram::convertToShaderParamType(GL_FLOAT_MAT4), viewTransfrom.value());
 	setUniform("projectionMat", ShaderProgram::convertToShaderParamType(GL_FLOAT_MAT4), projectionTransfrom.value());
+	setUniform("viewDir", ShaderProgram::convertToShaderParamType(GL_FLOAT_VEC3), cameraDirection.value());
 	auto directionalLightDatas = RenderManager::Instance()->getDirectionalLightDatas();
 	auto pointLightDatas = RenderManager::Instance()->getPointLightData();
 	auto spotLightDatas = RenderManager::Instance()->getSpotLightData();
@@ -80,18 +82,22 @@ void Render::render()
 	{
 		char s[127];
 		sprintf_s(s, "directionalLights[%d]", i);
+		size_t len = strlen(s);
 
-		strcpy_s(s + strlen(s), strlen(".ambient")+1, ".ambient");
+		strcpy_s(s + len, strlen(".ambient")+1, ".ambient");
 		setUniform(s, ShaderProgram::convertToShaderParamType(GL_FLOAT_VEC3), directionalLightDatas[i].ambient);
-
-		strcpy_s(s + strlen(s), strlen(".diffuse")+1, ".diffuse");
+		memset(s + len, 0, 127 - len);
+		strcpy_s(s + len, strlen(".diffuse")+1, ".diffuse");
 		setUniform(s, ShaderProgram::convertToShaderParamType(GL_FLOAT_VEC3), directionalLightDatas[i].diffuse);
-
-		strcpy_s(s + strlen(s), strlen(".specular")+1, ".specular");
+		memset(s + len, 0, 127 - len);
+		strcpy_s(s + len, strlen(".specular")+1, ".specular");
 		setUniform(s, ShaderProgram::convertToShaderParamType(GL_FLOAT_VEC3), directionalLightDatas[i].specular);
-
-		strcpy_s(s + strlen(s), strlen(".direction")+1, ".direction");
+		memset(s + len, 0, 127 - len);
+		strcpy_s(s + len, strlen(".direction")+1, ".direction");
 		setUniform(s, ShaderProgram::convertToShaderParamType(GL_FLOAT_VEC3), directionalLightDatas[i].direction);
+		memset(s + len, 0, 127 - len);
+		strcpy_s(s + len, strlen(".strength") + 1, ".strength");
+		setUniform(s, ShaderProgram::convertToShaderParamType(GL_FLOAT), &(directionalLightDatas[i].strength));
 	}
 
 	//pointLight
@@ -101,27 +107,31 @@ void Render::render()
 	{
 		char s[127];
 		sprintf_s(s, "pointLights[%d]", i);
+		size_t len = strlen(s);
 
-		strcpy_s(s + strlen(s), strlen(".ambient")+1, ".ambient");
+		strcpy_s(s + len, strlen(".ambient") + 1, ".ambient");
 		setUniform(s, ShaderProgram::convertToShaderParamType(GL_FLOAT_VEC3), pointLightDatas[i].ambient);
-
-		strcpy_s(s + strlen(s), strlen(".diffuse")+1, ".diffuse");
+		memset(s + len, 0, 127 - len);
+		strcpy_s(s + len, strlen(".diffuse")+1, ".diffuse");
 		setUniform(s, ShaderProgram::convertToShaderParamType(GL_FLOAT_VEC3), pointLightDatas[i].diffuse);
-
-		strcpy_s(s + strlen(s), strlen(".specular")+1, ".specular");
+		memset(s + len, 0, 127 - len);
+		strcpy_s(s + len, strlen(".specular")+1, ".specular");
 		setUniform(s, ShaderProgram::convertToShaderParamType(GL_FLOAT_VEC3), pointLightDatas[i].specular);
-
-		strcpy_s(s + strlen(s), strlen(".position")+1, ".position");
+		memset(s + len, 0, 127 - len);
+		strcpy_s(s + len, strlen(".position")+1, ".position");
 		setUniform(s, ShaderProgram::convertToShaderParamType(GL_FLOAT_VEC3), pointLightDatas[i].position);
-
-		strcpy_s(s + strlen(s), strlen(".constant")+1, ".constant");
+		memset(s + len, 0, 127 - len);
+		strcpy_s(s + len, strlen(".constant")+1, ".constant");
 		setUniform(s, ShaderProgram::convertToShaderParamType(GL_FLOAT), &(pointLightDatas[i].constant));
-
-		strcpy_s(s + strlen(s), strlen(".linear")+1, ".linear");
+		memset(s + len, 0, 127 - len);
+		strcpy_s(s + len, strlen(".linear")+1, ".linear");
 		setUniform(s, ShaderProgram::convertToShaderParamType(GL_FLOAT), &(pointLightDatas[i].linear));
-
-		strcpy_s(s + strlen(s), strlen(".quadratic")+1, ".quadratic");
+		memset(s + len, 0, 127 - len);
+		strcpy_s(s + len, strlen(".quadratic")+1, ".quadratic");
 		setUniform(s, ShaderProgram::convertToShaderParamType(GL_FLOAT), &(pointLightDatas[i].quadratic));
+		memset(s + len, 0, 127 - len);
+		strcpy_s(s + len, strlen(".strength") + 1, ".strength");
+		setUniform(s, ShaderProgram::convertToShaderParamType(GL_FLOAT), &(pointLightDatas[i].strength));
 	}
 
 	//spotLight
@@ -131,24 +141,32 @@ void Render::render()
 	{
 		char s[127];
 		sprintf_s(s, "spotLights[%d]", i);
+		size_t len = strlen(s);
 
-		strcpy_s(s + strlen(s), strlen(".ambient")+1, ".ambient");
+		strcpy_s(s + len, strlen(".ambient")+1, ".ambient");
 		setUniform(s, ShaderProgram::convertToShaderParamType(GL_FLOAT_VEC3), spotLightDatas[i].ambient);
-
-		strcpy_s(s + strlen(s), strlen(".diffuse")+1, ".diffuse");
+		memset(s + len, 0, 127 - len);
+		strcpy_s(s + len, strlen(".diffuse")+1, ".diffuse");
 		setUniform(s, ShaderProgram::convertToShaderParamType(GL_FLOAT_VEC3), spotLightDatas[i].diffuse);
-
-		strcpy_s(s + strlen(s), strlen(".specular")+1, ".specular");
+		memset(s + len, 0, 127 - len);
+		strcpy_s(s + len, strlen(".specular")+1, ".specular");
 		setUniform(s, ShaderProgram::convertToShaderParamType(GL_FLOAT_VEC3), spotLightDatas[i].specular);
-
-		strcpy_s(s + strlen(s), strlen(".position")+1, ".position");
+		memset(s + len, 0, 127 - len);
+		strcpy_s(s + len, strlen(".position")+1, ".position");
 		setUniform(s, ShaderProgram::convertToShaderParamType(GL_FLOAT_VEC3), spotLightDatas[i].position);
-
-		strcpy_s(s + strlen(s), strlen(".direction")+1, ".direction");
+		memset(s + len, 0, 127 - len);
+		strcpy_s(s + len, strlen(".direction")+1, ".direction");
 		setUniform(s, ShaderProgram::convertToShaderParamType(GL_FLOAT_VEC3), spotLightDatas[i].direction);
-
-		strcpy_s(s + strlen(s), strlen(".cutOff")+1, ".cutOff");
+		memset(s + len, 0, 127 - len);
+		strcpy_s(s + len, strlen(".cutOff")+1, ".cutOff");
 		setUniform(s, ShaderProgram::convertToShaderParamType(GL_FLOAT), &(spotLightDatas[i].cutOff));
+		memset(s + len, 0, 127 - len);
+		strcpy_s(s + len, strlen(".outCutOff") + 1, ".outCutOff");
+		float outCutOff = std::min(spotLightDatas[i].outCutOff, spotLightDatas[i].cutOff);
+		setUniform(s, ShaderProgram::convertToShaderParamType(GL_FLOAT), &outCutOff);
+		memset(s + len, 0, 127 - len);
+		strcpy_s(s + len, strlen(".strength") + 1, ".strength");
+		setUniform(s, ShaderProgram::convertToShaderParamType(GL_FLOAT), &(spotLightDatas[i].strength));
 	}
 
 	for (auto iter = m_renderDatas.begin(); iter != m_renderDatas.end(); iter++)
@@ -174,14 +192,14 @@ void Render::render()
 			{
 				switch (textureData.textureUnit)
 				{
-				case GL_TEXTURE0:glUniform1i(glGetUniformLocation(m_program->getProgramID(), textureData.texture), 0); break;
-				case GL_TEXTURE1:glUniform1i(glGetUniformLocation(m_program->getProgramID(), textureData.texture), 1); break;
-				case GL_TEXTURE2:glUniform1i(glGetUniformLocation(m_program->getProgramID(), textureData.texture), 2); break;
-				case GL_TEXTURE3:glUniform1i(glGetUniformLocation(m_program->getProgramID(), textureData.texture), 3); break;
-				case GL_TEXTURE4:glUniform1i(glGetUniformLocation(m_program->getProgramID(), textureData.texture), 4); break;
-				case GL_TEXTURE5:glUniform1i(glGetUniformLocation(m_program->getProgramID(), textureData.texture), 5); break;
-				case GL_TEXTURE6:glUniform1i(glGetUniformLocation(m_program->getProgramID(), textureData.texture), 6); break;
-				case GL_TEXTURE7:glUniform1i(glGetUniformLocation(m_program->getProgramID(), textureData.texture), 7); break;
+				case GL_TEXTURE0:glUniform1i(glGetUniformLocation(m_program->getProgramID(), textureData.name), 0); break;
+				case GL_TEXTURE1:glUniform1i(glGetUniformLocation(m_program->getProgramID(), textureData.name), 1); break;
+				case GL_TEXTURE2:glUniform1i(glGetUniformLocation(m_program->getProgramID(), textureData.name), 2); break;
+				case GL_TEXTURE3:glUniform1i(glGetUniformLocation(m_program->getProgramID(), textureData.name), 3); break;
+				case GL_TEXTURE4:glUniform1i(glGetUniformLocation(m_program->getProgramID(), textureData.name), 4); break;
+				case GL_TEXTURE5:glUniform1i(glGetUniformLocation(m_program->getProgramID(), textureData.name), 5); break;
+				case GL_TEXTURE6:glUniform1i(glGetUniformLocation(m_program->getProgramID(), textureData.name), 6); break;
+				case GL_TEXTURE7:glUniform1i(glGetUniformLocation(m_program->getProgramID(), textureData.name), 7); break;
 				default:
 					break;
 				}
@@ -253,9 +271,10 @@ void Render::loadData(RenderData * data)
 		c_size += 1;
 	}
 	//normal
-	c_size += 3;
+	
 	glVertexAttribPointer(3 , 3, GL_FLOAT, GL_FALSE, p_size * sizeof(float), (void*)(c_size * sizeof(float)));
 	glEnableVertexAttribArray(3);
+	c_size += 3;
 
 	for (size_t i = 0;i < sizeof(data->useUV); i++)
 	{

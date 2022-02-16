@@ -38,17 +38,35 @@ public:
 
     void setCutOff(float cutOff)
     {
-        m_cutOff = cutOff;
+        m_cutOff = glm::cos(glm::radians(cutOff));
     }
     float getCutOff()
     {
         return m_cutOff;
     }
+    void setOutCutOff(float outCutOff)
+    {
+        m_outCutOff = glm::cos(glm::radians(outCutOff));
+    }
+    float getOutCutOff()
+    {
+        return m_outCutOff;
+    }
+    void setStrength(float strength)
+    {
+        m_strength = strength;
+    }
+    float getStrength()
+    {
+        return m_strength;
+    }
 private:
-    Vector3 m_ambient = { 1,1,1 };
-    Vector3 m_diffuse = { 1,1,1 };
+    Vector3 m_ambient = { 0,0,0 };
+    Vector3 m_diffuse = { 0.8,0.8,0.8 };
     Vector3 m_specular = { 1,1,1 };
 
     float m_cutOff = glm::cos(glm::radians(12.5f));
+    float m_outCutOff = glm::cos(glm::radians(17.5f));
+    float m_strength = 0.8f;
 };
 

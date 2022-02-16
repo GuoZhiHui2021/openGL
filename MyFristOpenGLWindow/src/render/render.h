@@ -6,6 +6,7 @@ using namespace _Shader;
 
 struct TextureData
 {
+	char name[127] = {};
 	char texture[127] = {};
 	uint16_t textureUnit = 0;
 	uint16_t options[8] = { GL_REPEAT,GL_REPEAT,GL_NEAREST,GL_NEAREST,0x0000,0x0000,0x0000,0x0000};
@@ -91,6 +92,7 @@ struct BaseLightData
 struct DirectionalLightData :public BaseLightData
 {
 	float direction[3] = { 0 };
+	float strength = 1;
 };
 
 struct PointLightData :public BaseLightData
@@ -99,6 +101,7 @@ struct PointLightData :public BaseLightData
 	float constant = 0;
 	float linear = 0;
 	float quadratic = 0;
+	float strength = 1;
 };
 
 struct SpotLightData :public BaseLightData
@@ -106,6 +109,8 @@ struct SpotLightData :public BaseLightData
 	float position[3] = { 0 };
 	float direction[3] = { 0 };
 	float cutOff = 0;
+	float outCutOff = 0;
+	float strength = 1;
 };
 
 class Render

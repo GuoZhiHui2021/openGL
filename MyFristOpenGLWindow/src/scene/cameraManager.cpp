@@ -6,7 +6,7 @@
 
 Transfrom CameraManager::getViewTransfrom()
 {
-    if (m_dirty)
+    if (m_viewTransfromDirty)
     {
         if (Scene* scene = SceneManager::Instance()->getCurScene())
         {
@@ -32,9 +32,73 @@ Transfrom CameraManager::getViewTransfrom()
         {
             m_viewTransfrom = Transfrom();
         }
-        m_dirty = false;
+        m_viewTransfromDirty = false;
     }  
     return m_viewTransfrom;
+}
+
+Vector3 CameraManager::getMainCameraPosition()
+{
+    if (m_cameraPositionDirty)
+    {
+        if (Scene* scene = SceneManager::Instance()->getCurScene())
+        {
+            if (Camera* camera = static_cast<Camera*>(scene->getEntity(mMainCameraId)))
+            {
+                if (TransformComponent* component = camera->getComponent<TransformComponent>())
+                {
+                    Transfrom t = component->getWorldTransfrom();
+                    m_cameraPosition = Vector3(t[3].x, t[3].y, t[3].z);
+                }
+                else
+                {
+                    m_cameraPosition = Vector3();
+                }
+            }
+            else
+            {
+                m_cameraPosition = Vector3();
+            }
+        }
+        else
+        {
+            m_cameraPosition = Vector3();
+        }
+        m_cameraPositionDirty = false;
+    }
+    return m_cameraPosition;
+}
+
+Vector3 CameraManager::getMainCameraDirection()
+{
+    if (m_cameraDirectionDirty)
+    {
+        if (Scene* scene = SceneManager::Instance()->getCurScene())
+        {
+            if (Camera* camera = static_cast<Camera*>(scene->getEntity(mMainCameraId)))
+            {
+                if (TransformComponent* component = camera->getComponent<TransformComponent>())
+                {
+                    Transfrom t = component->getTransfrom();
+                    m_cameraDirection = Vector3(-t[2].x, -t[2].y, -t[2].z);
+                }
+                else
+                {
+                    m_cameraDirection = Vector3(0, 0, -1);
+                }
+            }
+            else
+            {
+                m_cameraDirection = Vector3(0, 0, -1);
+            }
+        }
+        else
+        {
+            m_cameraDirection = Vector3(0, 0, -1);
+        }
+        m_cameraDirectionDirty = false;
+    }
+    return m_cameraDirection;
 }
 
 Transfrom CameraManager::calculate_lookAt_matrix(Vector3 position, Vector3 front)
@@ -63,7 +127,7 @@ Transfrom CameraManager::calculate_lookAt_matrix(Vector3 position, Vector3 front
 
 Transfrom CameraManager::getPerspectiveTransfrom()
 {
-    if (m_dirty)
+    if (m_viewTransfromDirty)
     {
         m_perspectiveTransfrom = Transfrom(glm::perspective(glm::radians(m_aspect), m_viewWidth / m_viewHeight, m_near, m_far));
     }
