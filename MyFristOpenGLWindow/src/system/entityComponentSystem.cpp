@@ -66,6 +66,9 @@ void EntityComponentSystem::exe<2>(std::string exeCommand)
 			{
 			case static_cast<int64_t>(ComponentType::_TransformComponent):entity->removeComponent<TransformComponent>(); break;
 			case static_cast<int64_t>(ComponentType::_RenderComponent):entity->removeComponent<RenderComponent>(); break;
+			case static_cast<int64_t>(ComponentType::_DirectionalLightComponent):entity->removeComponent<DirectionalLightComponent>(); break;
+			case static_cast<int64_t>(ComponentType::_PointLightComponent):entity->removeComponent<PointLightComponent>(); break;
+			case static_cast<int64_t>(ComponentType::_SpotLightComponent):entity->removeComponent<SpotLightComponent>(); break;
 			default:
 				break;
 			}

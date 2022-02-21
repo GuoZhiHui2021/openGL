@@ -7,15 +7,14 @@
 #include "common/coordinateType.h"
 #include <system/systemManager.h>
 #include "scene/world.h"
+#include "render/meshManager.h"
 
 using namespace _Shader;
-void processInput(GLFWwindow*);
 
 int main()
 {
 	glInit();
 	{
-		
 		ShaderManager::Instance()->initialize();
 
 		//render.setPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -48,13 +47,17 @@ int main()
 		//光照
 		SystemManager::Instance()->pushSystemCommand(SystemCommand(3, 1, "4"));
 		SystemManager::Instance()->pushSystemCommand(SystemCommand(4, 1, "{4,1}"));
+		SystemManager::Instance()->pushSystemCommand(SystemCommand(4, 1, "{4,2}"));
 		SystemManager::Instance()->pushSystemCommand(SystemCommand(4, 1, "{4,3}"));
 		SystemManager::Instance()->pushSystemCommand(SystemCommand(6, 3, "{4,4.0f,3.0f,-5.0f}"));
 		SystemManager::Instance()->pushSystemCommand(SystemCommand(6, 5, "{4,0.3f,0.3f,0.3f}"));
-		SystemManager::Instance()->pushSystemCommand(SystemCommand(10, 16, "{4,0.4f}"));
+		SystemManager::Instance()->pushSystemCommand(SystemCommand(10, 16, "{4,0.8f}"));
+		SystemManager::Instance()->pushSystemCommand(SystemCommand(10, 6, "{4,0.5f,0.3f,0.7f}"));
+		SystemManager::Instance()->pushSystemCommand(SystemCommand(10, 7, "{4,0.5f,0.3f,0.7f}"));
 
 		SystemManager::Instance()->pushSystemCommand(SystemCommand(3, 1, "5"));
 		SystemManager::Instance()->pushSystemCommand(SystemCommand(4, 1, "{5,1}"));
+		SystemManager::Instance()->pushSystemCommand(SystemCommand(4, 1, "{5,2}"));
 		SystemManager::Instance()->pushSystemCommand(SystemCommand(4, 1, "{5,4}"));
 		SystemManager::Instance()->pushSystemCommand(SystemCommand(6, 3, "{5,1.0f,0.0f,-2.5f}"));
 		SystemManager::Instance()->pushSystemCommand(SystemCommand(6, 5, "{5,0.3f,0.3f,0.3f}"));
@@ -64,19 +67,32 @@ int main()
 
 		SystemManager::Instance()->pushSystemCommand(SystemCommand(3, 1, "6"));
 		SystemManager::Instance()->pushSystemCommand(SystemCommand(4, 1, "{6,1}"));
+		SystemManager::Instance()->pushSystemCommand(SystemCommand(4, 1, "{6,2}"));
 		SystemManager::Instance()->pushSystemCommand(SystemCommand(4, 1, "{6,5}"));
 		SystemManager::Instance()->pushSystemCommand(SystemCommand(6, 3, "{6,0.0f,0.0f,6.0f}"));
 		SystemManager::Instance()->pushSystemCommand(SystemCommand(6, 4, "{6,0.0f,180.0f,0.0f}"));
 		SystemManager::Instance()->pushSystemCommand(SystemCommand(6, 5, "{6,0.3f,0.3f,0.3f}"));
 		SystemManager::Instance()->pushSystemCommand(SystemCommand(10, 18, "{6,0.5f}"));
-		SystemManager::Instance()->pushSystemCommand(SystemCommand(10, 15, "{6,17.0f}"));
+		SystemManager::Instance()->pushSystemCommand(SystemCommand(10, 15, "{6,2.0f}"));
 		SystemManager::Instance()->pushSystemCommand(SystemCommand(10, 12, "{6,0.4f,0.8f,0.2f}"));
 
+		//模型
+		SystemManager::Instance()->pushSystemCommand(SystemCommand(3, 1, "7"));
+		SystemManager::Instance()->pushSystemCommand(SystemCommand(4, 1, "{7,1}"));
+		SystemManager::Instance()->pushSystemCommand(SystemCommand(4, 1, "{7,2}"));
+		//SystemManager::Instance()->pushSystemCommand(SystemCommand(6, 2, "{2,10.0f,10.0f,0.0f}"));
+		SystemManager::Instance()->pushSystemCommand(SystemCommand(6, 3, "{7,0.0f,-1.0f,2.3f}"));
+		SystemManager::Instance()->pushSystemCommand(SystemCommand(6, 5, "{7,0.2f,0.2f,0.2f}"));
+		//SystemManager::Instance()->pushSystemCommand(SystemCommand(7, 2, "{7,material/phong.materialPrototype}"));
+		SystemManager::Instance()->pushSystemCommand(SystemCommand(7, 3, "{7,res/mesh/nanosuit/nanosuit.obj}"));
+		//SystemManager::Instance()->pushSystemCommand(SystemCommand(6, 4, "{2,0.0f,45.0f,0.0f}"));
+		//SystemManager::Instance()->pushSystemCommand(SystemCommand(6, 5, "{2,1.0f,1.0f,1.0f}"));
+	/*	SystemManager::Instance()->pushSystemCommand(SystemCommand(7, 1, "{2,true}"));
+		SystemManager::Instance()->pushSystemCommand(SystemCommand(7, 2, "{2,material/boxPhong.material}"));*/
 
 		while (!glWindowShouldClose())
 		{
 			//输入
-			//processInput(window);
 			recordInputEvent();
 			//渲染指令
 			
@@ -87,31 +103,4 @@ int main()
 	}
 	glTerminate();
 	return 0;
-}
-
-void processInput(GLFWwindow* window)
-{
-	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-	{
-		glfwSetWindowShouldClose(window, true);
-	}
-	else if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
-	{
-		/*alpha = std::min(1.0f, std::max(0.0f, alpha + 0.01f));
-		alpha_dirty = true;*/
-	}
-	else if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
-	{
-		/*alpha = std::min(1.0f, std::max(0.0f, alpha - 0.01f));
-		alpha_dirty = true;*/
-	}
-	//float cameraSpeed = 0.05f; // adjust accordingly
-	//if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-	//	cameraPos += cameraSpeed * cameraFront;
-	//if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-	//	cameraPos -= cameraSpeed * cameraFront;
-	//if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-	//	cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
-	//if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-	//	cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
 }

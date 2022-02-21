@@ -162,3 +162,33 @@ void* Vector3::value() const
 	return (void*)glm::value_ptr(m_vec3);
 }
 
+Vector2::Vector2():m_vec2(0.0f, 0.0f)
+{
+}
+
+Vector2::Vector2(const Vector2& vec2): m_vec2(vec2.m_vec2)
+{
+}
+
+Vector2::Vector2(const glm::vec2& vec2) : m_vec2(vec2)
+{
+}
+
+Vector2::Vector2(float x, float y): m_vec2(x,y)
+{
+}
+
+Vector2 Vector2::normalize()
+{
+	return Vector2(glm::normalize(m_vec2));
+}
+
+glm::vec2 Vector2::getVec2() const
+{
+	return m_vec2;
+}
+
+void* Vector2::value() const
+{
+	return (void*)glm::value_ptr(m_vec2);
+}

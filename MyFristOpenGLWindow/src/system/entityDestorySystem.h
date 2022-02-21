@@ -6,7 +6,7 @@ class EntityDestorySystem final:
 public:
 	virtual int getOrder()
 	{
-		return 10000;
+		return 4001;
 	}
 	virtual uint16_t getSystemType()
 	{

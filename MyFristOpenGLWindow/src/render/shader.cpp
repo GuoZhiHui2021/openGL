@@ -34,12 +34,15 @@ void Shader::load(const GLchar * shaderSource, unsigned int shaderType)
 		shaderStream << shaderFile.rdbuf();
 		std::string str = shaderStream.str();
 		auto c_str = str.c_str();
-		m_shaderCode = (char*)malloc(strlen(c_str) + 1);
-		memcpy(m_shaderCode, c_str, strlen(c_str));
-		m_shaderCode[strlen(c_str)] = 0;
-		printf(m_shaderCode);
-		m_shader = const_cast<GLchar *>(shaderSource);
+		m_shaderCode = (char*)malloc(str.size() + 1);
+		auto c = str.size();
+		if (m_shaderCode)
+		{
+			strcpy_s(m_shaderCode, str.size() + 1, c_str);
+		}
+		m_shader = const_cast<GLchar*>(shaderSource);
 		shaderFile.close();
+		printf("-----------------------------------\nload shader succ:\nname:%s\ncode:\n%s\n-----------------------------------\n\n\n\n\n", shaderSource,m_shaderCode);
 	}
 	catch (const std::exception&)
 	{
@@ -88,7 +91,7 @@ bool Shader::compile()
 	if (!success)
 	{
 		glGetShaderInfoLog(shaderID, 512, NULL, infoLog);
-		std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
+		printf("ERROR::SHADER::VERTEX::COMPILATION_FAILED\n%s\n", infoLog);
 	}
 	m_compile = true;
 	return success;

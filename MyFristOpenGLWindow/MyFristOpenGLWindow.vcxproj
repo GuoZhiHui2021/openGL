@@ -71,7 +71,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>Include;src;$(IncludePath)</IncludePath>
-    <LibraryPath>Libs\GLFW;$(LibraryPath)</LibraryPath>
+    <LibraryPath>Libs\assimp;Libs\GLFW;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>src;Include;glad\include;$(IncludePath)</IncludePath>
@@ -86,10 +86,13 @@
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>glfw3.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>assimp-vc140-mt.lib;glfw3.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
       <AssemblyDebug>true</AssemblyDebug>
     </Link>
+    <PreBuildEvent>
+      <Command>xcopy $(SolutionDir)MyFristOpenGLWindow\dll $(OutDir) /a /F /I /Y /C</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -146,6 +149,9 @@
     <ClCompile Include="src\render\glWindow.cpp" />
     <ClCompile Include="src\render\material.cpp" />
     <ClCompile Include="src\render\materialManager.cpp" />
+    <ClCompile Include="src\render\mesh.cpp" />
+    <ClCompile Include="src\render\meshManager.cpp" />
+    <ClCompile Include="src\render\meshTool.cpp" />
     <ClCompile Include="src\render\render.cpp" />
     <ClCompile Include="src\render\renderManager.cpp" />
     <ClCompile Include="src\render\shader.cpp" />
@@ -198,6 +204,9 @@
     <ClInclude Include="src\render\glWindow.h" />
     <ClInclude Include="src\render\material.h" />
     <ClInclude Include="src\render\materialManager.h" />
+    <ClInclude Include="src\render\mesh.h" />
+    <ClInclude Include="src\render\meshManager.h" />
+    <ClInclude Include="src\render\meshTool.h" />
     <ClInclude Include="src\render\render.h" />
     <ClInclude Include="src\render\renderManager.h" />
     <ClInclude Include="src\render\shader.h" />

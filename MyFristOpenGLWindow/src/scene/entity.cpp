@@ -78,6 +78,114 @@ bool Entity::applyComponent<RenderComponent>()
 	return true;
 }
 
+template<>
+DirectionalLightComponent* Entity::getComponent<DirectionalLightComponent>()
+{
+	for (auto component : m_components)
+	{
+		if (component->getComponentTypeName() == "DirectionalLightComponent")
+			return (DirectionalLightComponent*)component;
+	}
+	return nullptr;
+}
+
+template<>
+PointLightComponent* Entity::getComponent<PointLightComponent>()
+{
+	for (auto component : m_components)
+	{
+		if (component->getComponentTypeName() == "PointLightComponent")
+			return (PointLightComponent*)component;
+	}
+	return nullptr;
+}
+
+template<>
+SpotLightComponent* Entity::getComponent<SpotLightComponent>()
+{
+	for (auto component : m_components)
+	{
+		if (component->getComponentTypeName() == "SpotLightComponent")
+			return (SpotLightComponent*)component;
+	}
+	return nullptr;
+}
+
+template<>
+bool Entity::removeComponent<DirectionalLightComponent>()
+{
+	auto iter = m_components.begin();
+	while (iter != m_components.end())
+	{
+		Component* component = *iter;
+		if (component->getComponentTypeName() == "DirectionalLightComponent")
+		{
+			m_components.erase(iter);
+			return true;
+		}
+	}
+	return false;
+}
+
+template<>
+bool Entity::removeComponent<PointLightComponent>()
+{
+	auto iter = m_components.begin();
+	while (iter != m_components.end())
+	{
+		Component* component = *iter;
+		if (component->getComponentTypeName() == "PointLightComponent")
+		{
+			m_components.erase(iter);
+			return true;
+		}
+	}
+	return false;
+}
+
+template<>
+bool Entity::removeComponent<SpotLightComponent>()
+{
+	auto iter = m_components.begin();
+	while (iter != m_components.end())
+	{
+		Component* component = *iter;
+		if (component->getComponentTypeName() == "SpotLightComponent")
+		{
+			m_components.erase(iter);
+			return true;
+		}
+	}
+	return false;
+}
+
+template<>
+bool Entity::applyComponent<DirectionalLightComponent>()
+{
+	if (getComponent<DirectionalLightComponent>())
+		return false;
+	m_components.push_back(new DirectionalLightComponent());
+	return true;
+}
+
+template<>
+bool Entity::applyComponent<PointLightComponent>()
+{
+	if (getComponent<PointLightComponent>())
+		return false;
+	m_components.push_back(new PointLightComponent());
+	return true;
+}
+
+template<>
+bool Entity::applyComponent<SpotLightComponent>()
+{
+	if (getComponent<SpotLightComponent>())
+		return false;
+	m_components.push_back(new SpotLightComponent());
+	return true;
+}
+
 void Entity::setParent_implement(Instance* instance)
 {
 	if (!instance||instance->getInstanceType() == "Scene")

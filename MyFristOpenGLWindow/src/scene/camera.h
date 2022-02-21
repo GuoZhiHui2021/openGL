@@ -9,14 +9,6 @@ public:
     {
         return "Camera";
     }
-    virtual void* getRenderVerticesBuffer(unsigned int& verticesCount)
-    {
-        return nullptr;
-    }
-    virtual void* getRenderElementsBuffer(unsigned int& elementCounts)
-    {
-        return nullptr;
-    }
 
     void setView(Vector3 pos, Vector3 front, Vector3 up);
     Transfrom LookAt(Vector3 pos, Vector3 front, Vector3 up);

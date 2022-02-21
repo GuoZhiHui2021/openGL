@@ -25,6 +25,7 @@ Render* RenderManager::getOrCreateRender(std::string prototype)
 	render->initialize();
 	for (auto shaderAttr : shaders)
 	{
+		std::string a((char*)shaderAttr.m_value);
 		if (!render->attachShader(shaderAttr.m_type, (char*)shaderAttr.m_value))
 		{
 			delete render;

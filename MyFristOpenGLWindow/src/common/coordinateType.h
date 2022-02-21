@@ -59,5 +59,20 @@ private:
 	glm::vec3 m_vec3;
 };
 
+class Vector2
+{
+public:
+	Vector2();
+	Vector2(const Vector2& vec2);
+	Vector2(const glm::vec2& vec2);
+	Vector2(float x, float y);
+	Vector2 normalize();
+
+	glm::vec2 getVec2() const;
+	void* value() const;
+private:
+	glm::vec2 m_vec2;
+};
+
 
 

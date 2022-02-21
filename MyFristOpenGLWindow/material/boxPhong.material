@@ -1,5 +1,5 @@
 prototype:material/phong.materialPrototype
-diffuse:{TEXTURE0,{res/texture/container2.png,REPEAT,REPEAT,REPEAT,REPEAT}}
-specular:{TEXTURE1,{res/texture/container2_specular.png,REPEAT,REPEAT,REPEAT,REPEAT}}
+diffuse0:{TEXTURE0,{res/texture/container2.png,REPEAT,REPEAT,REPEAT,REPEAT}}
+specular0:{TEXTURE1,{res/texture/container2_specular.png,REPEAT,REPEAT,REPEAT,REPEAT}}
 shininess:{FLOAT,32.0}
 

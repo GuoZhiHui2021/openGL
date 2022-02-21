@@ -103,9 +103,6 @@ public:
 	{
 		return m_sustained;
 	}
-	//virtual bool getRenderBuffer(void* vertices, unsigned int& verticesCount, void* elements, unsigned int& elementCounts) = 0;
-	virtual void* getRenderVerticesBuffer(unsigned int& verticesCount) = 0;
-	virtual void* getRenderElementsBuffer(unsigned int& elementCounts) = 0;
 protected:
 	virtual void setParent_implement(Instance* instance);
 private:

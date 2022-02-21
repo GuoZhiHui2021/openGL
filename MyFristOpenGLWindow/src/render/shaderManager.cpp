@@ -2,7 +2,6 @@
 #include "vertexShader.h"
 #include "fragmentShader.h"
 #include "def.h"
-#include <iostream>
 using namespace _Shader;
 
 _Shader::ShaderManager::~ShaderManager()
@@ -54,18 +53,18 @@ bool _Shader::ShaderManager::addShader(unsigned int ShaderType, const string & n
 	auto itFactory = m_shaderFactoryMap.find(ShaderType);
 	if (itFactory == m_shaderFactoryMap.end()|| it == m_shaderMap.end())
 	{
-		std::cout << "ERROR::SHADER::ADD_SHADER_FAILED\n" << name <<std::endl;
+		printf("ERROR::SHADER::ADD_SHADER_FAILED   %s\n", name.c_str());
 		return false;
 	}
 	if (it->second.find(name) != it->second.end())
 	{
-		std::cout << "ERROR::SHADER::ADD_SHADER_REPEAT\n" << name << std::endl;
+		printf("ERROR::SHADER::ADD_SHADER_REPEAT   %s\n", name.c_str());
 		return false;
 	}
 	Shader* shader = itFactory->second->createShader(name);
 	if (!shader)
 	{
-		std::cout << "ERROR::SHADER::CREATE_SHADER_FAILED\n" << name << std::endl;
+		printf("ERROR::SHADER::CREATE_SHADER_FAILED   %s\n", name.c_str());
 		return false;
 	}
 	it->second.insert(std::make_pair(name, shader));
@@ -77,7 +76,7 @@ Shader * _Shader::ShaderManager::getShader(unsigned int ShaderType, const string
 	auto iter = m_shaderMap.find(ShaderType);
 	if (iter == m_shaderMap.end())
 	{
-		std::cout << "ERROR::SHADER::NOT_SHADER_MAP_TYPE\n" << ShaderType << std::endl;
+		printf("ERROR::SHADER::NOT_SHADER_MAP_TYPE   %d\n", ShaderType);
 		return nullptr;
 	}
 	auto shaderIter = iter->second.find(name);

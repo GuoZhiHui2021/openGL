@@ -16,10 +16,10 @@ bool ShaderProgram::link()
 	if (!success)
 	{
 		glGetProgramInfoLog(m_programID, 512, NULL, infoLog);
-		std::cout << "ERROR::SHADER::PROGRAM::LINK_FAILED\n" << infoLog << std::endl;
+		printf("ERROR::SHADER::PROGRAM::LINK_FAILED\n%s\n",infoLog);
 		return false;
 	}
-	std::cout << "INFO::SHADER::PROGRAM::LINK_SUCC\n";
+	printf("INFO::SHADER::PROGRAM::LINK_SUCC\n");
 	return true;
 }
 
@@ -27,7 +27,7 @@ void _Shader::ShaderProgram::attach(Shader * shader)
 {
 	if (!shader)
 	{
-		std::cout << "ERROR::ShaderProgram::ATTACH_SHADER_FAILED\n" << std::endl;
+		printf("ERROR::ShaderProgram::ATTACH_SHADER_FAILED\n\n");
 		return;
 	}
 	unsigned int shaderType = shader->getShaderType();
@@ -37,7 +37,7 @@ void _Shader::ShaderProgram::attach(Shader * shader)
 		Shader* old_shader = it->second;
 		if (old_shader == shader)
 		{
-			std::cout << "WARNING::ShaderProgram::ATTACH_SAME_SHADER\n" << std::endl;
+			printf("WARNING::ShaderProgram::ATTACH_SAME_SHADER\n\n");
 			return;
 		}
 		detch(old_shader);
@@ -45,14 +45,17 @@ void _Shader::ShaderProgram::attach(Shader * shader)
 		glAttachShader(m_programID, shader->getShaderID());
 		m_shader_map[shaderType] = shader;
 		//shader->deleteShader();
-		std::cout << "INFO::ShaderProgram::ATTACH_SHADER_SUCC:" << shader->getShaderName()<<" "<< shaderType << std::endl;
+		printf("INFO::ShaderProgram::ATTACH_SHADER_SUCC:   %s   %d\n\n", shader->getShaderName().c_str(), shaderType);
 		return;
 	}
 	shader->compile();
 	glAttachShader(m_programID, shader->getShaderID());
 	m_shader_map.insert(std::make_pair(shaderType, shader));
+
+	int j = 0;
 	//shader->deleteShader();
-	std::cout << "INFO::ShaderProgram::ATTACH_SHADER_SUCC:" << shader->getShaderName() << " " << shaderType << std::endl;
+	/*std::cout << 1 << std::endl;
+	std::cout << "INFO::ShaderProgram::ATTACH_SHADER_SUCC:" << shader->getShaderName() << " " << shaderType << std::endl;*/
 }
 
 void _Shader::ShaderProgram::detch(Shader * shader)

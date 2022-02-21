@@ -31,44 +31,22 @@ struct UniformData
 struct RenderData
 {
 	std::string prototype;
-	bool active = true;
 	int64_t id = 0;
-	unsigned int count = 0;
-	unsigned int element_count = 0;
-	unsigned int texture_name_length = 0;
-	float* vertices;
-	unsigned int* element;
 	TextureData* textures;
 	UniformData* uniforms;
 	float transform[16] = {0};
-	bool useUV[2] = { false,false };
+	bool useUV[8] = { false,false,false,false,false,false,false,false };
 	bool useColor = false;
-	bool useAlpha = false;
 	int textureSize = 0;
 	int uniformSize = 0;
+	int elementCount = 0;
 	unsigned int VBO = 0;
 	unsigned int VAO = 0;
 	unsigned int EBO = 0;
-	RenderData():vertices(nullptr),element(nullptr), textures(nullptr), uniforms(nullptr)
+	RenderData():textures(nullptr), uniforms(nullptr)
 	{}
 	~RenderData()
 	{
-		if (VAO) 
-			glDeleteVertexArrays(1, &VAO);
-		if (VBO)
-			glDeleteBuffers(1, &VBO);
-		if (EBO)
-			glDeleteBuffers(1, &VBO);
-		if (vertices)
-		{
-			free(vertices);
-			vertices = nullptr;
-		}
-		if (element)
-		{
-			free(element);
-			element = nullptr;
-		}
 		if (textures)
 		{
 			free(textures);
@@ -76,6 +54,11 @@ struct RenderData
 		}
 		if (uniforms)
 		{
+			for (int i = 0; i < uniformSize; i++)
+			{
+				free(uniforms[i].m_data);
+				uniforms[i].m_data = nullptr;
+			}
 			free(uniforms);
 			uniforms = nullptr;
 		}
@@ -132,7 +115,6 @@ public:
 	void setPolygonMode(GLenum face, GLenum mode);
 	virtual void render();
 	virtual void loadData(RenderData* data);
-	virtual void updateData(int64_t id);
 	RenderData* getRenderData(int64_t id);
 	void deleteRenderData(int64_t id);
 	void removeRenderData(int64_t id);

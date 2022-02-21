@@ -195,6 +195,15 @@
     <ClCompile Include="src\system\lightSystem.cpp">
       <Filter>源文件\System</Filter>
     </ClCompile>
+    <ClCompile Include="src\render\mesh.cpp">
+      <Filter>源文件\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="src\render\meshManager.cpp">
+      <Filter>源文件\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="src\render\meshTool.cpp">
+      <Filter>源文件\Render</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MyFristOpenGLWindow.rc">
@@ -345,6 +354,15 @@
     </ClInclude>
     <ClInclude Include="src\system\lightSystem.h">
       <Filter>头文件\System</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render\mesh.h">
+      <Filter>头文件\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render\meshManager.h">
+      <Filter>头文件\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render\meshTool.h">
+      <Filter>头文件\Render</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
