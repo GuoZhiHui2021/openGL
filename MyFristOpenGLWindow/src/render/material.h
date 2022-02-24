@@ -31,10 +31,13 @@ public:
 	std::vector<MaterialPrototypeAttr> getShaders() const;
 	MaterialPrototypeAttr getAttr(std::string attrName) const;
 	uint16_t getAttrType(std::string attrName) const;
+	void setRenderType(std::string type);
+	std::string getRenderType() const;
 private:
 	MaterialPrototype();
 private:
 	std::string m_name;
+	std::string m_renderType;
 	std::unordered_map<std::string, MaterialPrototypeAttr> m_attrs;
 	std::unordered_map<uint16_t, MaterialPrototypeAttr> m_shaders;
 

@@ -248,11 +248,14 @@
     <None Include="material\boxPhong.material" />
     <None Include="material\default.materialPrototype" />
     <None Include="material\light.materialPrototype" />
+    <None Include="material\outline.materialPrototype" />
     <None Include="material\phong.materialPrototype" />
     <None Include="shader\default.frag" />
     <None Include="shader\default.vert" />
     <None Include="shader\light.frag" />
     <None Include="shader\light.vert" />
+    <None Include="shader\outline.frag" />
+    <None Include="shader\outline.vert" />
     <None Include="shader\phong.frag" />
     <None Include="shader\phong.vert" />
     <None Include="shader\panel.frag" />

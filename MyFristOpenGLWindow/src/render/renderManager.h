@@ -3,6 +3,7 @@
 #include <render/render.h>
 #include <string>
 #include <scene/entity.h>
+#include <unordered_set>
 class RenderManager:public Singleton<RenderManager>
 {
 public:
@@ -44,8 +45,10 @@ public:
 	void update();
 private:
 	bool add(RenderData* data);
+	bool singleRender(int64_t id);
 private:
 	std::unordered_map<int64_t, RenderData*> m_renderDatas;
+	std::unordered_set<int64_t> m_singleRenderDatas;
 	std::unordered_map<std::string, Render*> m_renders;
 	std::vector<DirectionalLightData> m_directionalLightDatas;
 	std::vector<PointLightData> m_pointLightDatas;

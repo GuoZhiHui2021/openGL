@@ -4,6 +4,7 @@
 #include <cstring>
 #include <string>
 #include <math.h>
+#include <vector>
 
 #define PI acos(-1)
 
@@ -222,3 +223,19 @@ static bool strToBool(const char* src, bool& ret)
 	}
 	return false;
 }
+
+bool getStringValue(std::string str, int64_t& id, std::string& value);
+
+bool getV3Value(std::string str, int64_t& id, std::vector<float>& value);
+
+bool getBoolValue(std::string str, int64_t& id, bool& value);
+
+bool getFloatValue(std::string str, int64_t& id, float& value);
+
+bool getInt64Value(std::string str, int64_t& id, int64_t& value);
+
+bool getIntValue(std::string str, int64_t& id, int& value);
+
+bool getIntV2Value(std::string str, int64_t& id, std::vector<int>& value);
+
+bool getV2Value(std::string str, int64_t& id, std::vector<float>& value);

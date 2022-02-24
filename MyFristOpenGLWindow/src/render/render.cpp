@@ -8,6 +8,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <render/def.h>
 using namespace _Shader;
 Render::Render() :m_program(nullptr), m_initialized(false), m_face(GL_FRONT_AND_BACK), m_mode(GL_FILL)
 {
@@ -206,6 +207,10 @@ void Render::render()
 		}
 		glBindVertexArray(data->VAO);
 		glPolygonMode(m_face, m_mode);
+		glStencilFunc(GL_ALWAYS, data->stencilRef, 0XFF);
+		glStencilMask(0XFF);
+			
+
 		glDrawElements(GL_TRIANGLES, data->elementCount, GL_UNSIGNED_INT, 0);
 	}
 	glBindVertexArray(0);
@@ -237,17 +242,6 @@ RenderData* Render::getRenderData(int64_t id)
 	return nullptr;
 }
 
-void Render::deleteRenderData(int64_t id)
-{
-	auto iter = m_renderDatas.find(id);
-	if (iter != m_renderDatas.end())
-	{
-		auto data = iter->second;
-		m_renderDatas.erase(id);
-		delete data;
-	}
-}
-
 void Render::removeRenderData(int64_t id)
 {
 	auto iter = m_renderDatas.find(id);
@@ -260,12 +254,46 @@ void Render::removeRenderData(int64_t id)
 
 void Render::removeDatas()
 {
-	for (auto &iter : m_renderDatas)
-	{
-		removeRenderData(iter.first);
-	}
+	m_renderDatas.clear();
 }
 
+void OutlineRender::render()
+{
+	if (!m_initialized || !m_program)
+		return;
+	if (m_program)
+		m_program->use();
 
+	Transfrom projectionTransfrom = CameraManager::Instance()->getPerspectiveTransfrom();
+	Transfrom viewTransfrom = CameraManager::Instance()->getViewTransfrom();
 
+	setUniform("viewMat", ShaderProgram::convertToShaderParamType(GL_FLOAT_MAT4), viewTransfrom.value());
+	setUniform("projectionMat", ShaderProgram::convertToShaderParamType(GL_FLOAT_MAT4), projectionTransfrom.value());
 
+	glStencilMask(0X00);
+	glDisable(GL_DEPTH_TEST);
+	for (auto iter = m_renderDatas.begin(); iter != m_renderDatas.end(); iter++)
+	{
+		auto data = iter->second;
+		for (int i = 0; i < data->uniformSize; i++)
+		{
+			setUniform(std::string(data->uniforms[i].m_name, strlen(data->uniforms[i].m_name)), ShaderProgram::convertToShaderParamType(data->uniforms[i].m_type), data->uniforms[i].m_data);
+		}
+		setUniform("modelMat", ShaderProgram::convertToShaderParamType(GL_FLOAT_MAT4), data->transform);
+
+		m_program->update();
+		glBindVertexArray(data->VAO);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+		if (data->stencilRef)
+		{
+			glStencilFunc(GL_NOTEQUAL, 1, 0XFF);
+		}
+		
+		glDrawElements(GL_TRIANGLES, data->elementCount, GL_UNSIGNED_INT, 0);
+
+	}
+	glStencilMask(0xFF);
+	glEnable(GL_DEPTH_TEST);
+	glBindVertexArray(0);
+}

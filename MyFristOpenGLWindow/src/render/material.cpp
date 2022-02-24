@@ -111,6 +111,16 @@ uint16_t MaterialPrototype::getAttrType(std::string attrName) const
 	return 0;
 }
 
+void MaterialPrototype::setRenderType(std::string type)
+{
+	m_renderType = type;
+}
+
+std::string MaterialPrototype::getRenderType() const
+{
+	return m_renderType;
+}
+
 Material::Material(std::string src,const MaterialPrototype& prototype)
 {
 	m_name = src;

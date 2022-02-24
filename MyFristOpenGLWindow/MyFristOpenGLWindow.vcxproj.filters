@@ -414,5 +414,14 @@
     <None Include="material\boxPhong.material">
       <Filter>资源文件\Material</Filter>
     </None>
+    <None Include="material\outline.materialPrototype">
+      <Filter>资源文件\Material</Filter>
+    </None>
+    <None Include="shader\outline.frag">
+      <Filter>资源文件\Shader</Filter>
+    </None>
+    <None Include="shader\outline.vert">
+      <Filter>资源文件\Shader</Filter>
+    </None>
   </ItemGroup>
 </Project>

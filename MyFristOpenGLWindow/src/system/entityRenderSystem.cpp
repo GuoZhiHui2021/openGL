@@ -12,18 +12,8 @@
 #include <common/fileUtil.h>
 #include <common/util.h>
 #include <queue>
-bool getEntityRenderValue(std::string str, int64_t& id, std::string& value)
-{
-	auto strs = splitLevelStr(str.substr(1, str.length() - 2), ",");
-	if (strs.size() != 2)
-		return false;
-	int64_t t_id = 0;
-	if (!strToInt64(strs[0].c_str(), t_id))
-		return false;
-	id = t_id;
-	value = strs[1];
-	return true;
-}
+#include <render/def.h>
+
 void EntityRenderSystem::execute_implement()
 {
 	for (size_t i = 0; i < m_commands.size(); i++)
@@ -34,6 +24,9 @@ void EntityRenderSystem::execute_implement()
 		case (uint16_t)Commond::_Visible:exe<1>(m_commands[i].m_data); break;
 		case (uint16_t)Commond::_Material:exe<2>(m_commands[i].m_data); break;
 		case (uint16_t)Commond::_Mesh:exe<3>(m_commands[i].m_data); break;
+		case (uint16_t)Commond::_Outline:exe<4>(m_commands[i].m_data); break;
+		case (uint16_t)Commond::_OutlineColor:exe<5>(m_commands[i].m_data); break;
+		case (uint16_t)Commond::_OutlineWitdh:exe<6>(m_commands[i].m_data); break;
 		default:
 			break;
 		}
@@ -69,10 +62,58 @@ void EntityRenderSystem::updateRenderData(Entity* entity)
 		Transfrom t;
 		if (t_component)
 			t = t_component->getTransfrom();
+		int addNum = 0;
+		if (r_component->getOutline())
+		{
+			addNum+=2;
+		}
+		
 		for(int i = 0;i< renderDatas.size();i++)
 		{
-			memcpy_s((renderDatas[i]->transform), sizeof(float) * 16, t.value(), sizeof(float) * 16);
-			RenderManager::Instance()->updateRenderData(renderDatas[i]);
+			RenderData *renderData = renderDatas[i];
+			memcpy_s((renderData->transform), sizeof(float) * 16, t.value(), sizeof(float) * 16);
+			
+
+			if (addNum > 1 && renderData->uniforms != nullptr)
+			{
+				UniformData* data = renderData->uniforms;
+				renderData->uniforms = nullptr;
+				renderData->uniforms = (UniformData*)realloc(data, sizeof(UniformData) * (renderData->uniformSize + addNum));
+				if (!renderData->uniforms)
+				{
+					renderData->uniforms = (UniformData*)malloc(sizeof(UniformData) * (renderData->uniformSize + addNum));
+					memcpy_s(renderData->uniforms, sizeof(UniformData) * renderData->uniformSize, data, sizeof(UniformData) * renderData->uniformSize);
+					free(data);
+				}
+			}
+			else if(addNum > 1)
+				renderData->uniforms = (UniformData*)malloc(sizeof(UniformData) * (renderData->uniformSize + addNum));
+			if (!renderData->uniforms)
+			{
+				delete renderData;
+				continue;
+			}
+
+			if (r_component->getOutline())
+			{
+				renderData->uniformSize++;
+				renderData->uniforms[renderData->uniformSize - 1].m_type = GL_FLOAT_VEC3;
+				strcpy_s(renderData->uniforms[renderData->uniformSize - 1].m_name, strlen("outlineColor") + 1, "outlineColor");
+				renderData->uniforms[renderData->uniformSize - 1].m_data = malloc(sizeof(float) * 3);
+				memcpy_s(renderData->uniforms[renderData->uniformSize - 1].m_data, sizeof(float) * 3, r_component->getOutlineColor().value(), sizeof(float) * 3);
+
+				renderData->uniformSize++;
+				renderData->uniforms[renderData->uniformSize - 1].m_type = GL_FLOAT;
+				strcpy_s(renderData->uniforms[renderData->uniformSize - 1].m_name, strlen("outlineWidth") + 1, "outlineWidth");
+				renderData->uniforms[renderData->uniformSize - 1].m_data = malloc(sizeof(float));
+				float outlineWidth = r_component->getOutlineWidth();
+				memcpy_s(renderData->uniforms[renderData->uniformSize - 1].m_data, sizeof(float), &outlineWidth, sizeof(float));
+
+				renderData->stencilRef |= OUTLINE_STENCIL_MARK;
+			}
+
+
+			RenderManager::Instance()->updateRenderData(renderData);
 		}
 	}
 }
@@ -166,6 +207,12 @@ void EntityRenderSystem::updateLightRenderData(Entity* entity, Vector3 color)
 				UniformData* data = renderData->uniforms;
 				renderData->uniforms = nullptr;
 				renderData->uniforms = (UniformData*)realloc(data, sizeof(UniformData) * renderData->uniformSize);
+				if (!renderData->uniforms)
+				{
+					renderData->uniforms = (UniformData*)malloc(sizeof(UniformData) * renderData->uniformSize);
+					memcpy_s(renderData->uniforms, sizeof(UniformData) * (renderData->uniformSize - 1), data, sizeof(UniformData) * (renderData->uniformSize - 1));
+				}
+				free(data);
 			}
 			else
 				renderData->uniforms = (UniformData*)malloc(sizeof(UniformData) * renderData->uniformSize);
@@ -190,7 +237,7 @@ void EntityRenderSystem::exe<1>(std::string exeCommand)
 	bool visible;
 	int64_t id;
 	std::string s_visible;
-	if (getEntityRenderValue(exeCommand, id, s_visible)&&strToBool(s_visible.c_str(), visible))
+	if (getStringValue(exeCommand, id, s_visible)&&strToBool(s_visible.c_str(), visible))
 	{
 		if (auto entity = getEntity(id))
 		{
@@ -206,7 +253,7 @@ void EntityRenderSystem::exe<2>(std::string exeCommand)
 {
 	int64_t id;
 	std::string material;
-	if (getEntityRenderValue(exeCommand, id, material))
+	if (getStringValue(exeCommand, id, material))
 	{
 		if (auto entity = getEntity(id))
 		{
@@ -222,7 +269,7 @@ void EntityRenderSystem::exe<3>(std::string exeCommand)
 {
 	int64_t id;
 	std::string mesh;
-	if (getEntityRenderValue(exeCommand, id, mesh))
+	if (getStringValue(exeCommand, id, mesh))
 	{
 		if (auto entity = getEntity(id))
 		{
@@ -230,6 +277,54 @@ void EntityRenderSystem::exe<3>(std::string exeCommand)
 			removeHTSpaces(mesh);
 			if (component)
 				component->setMesh(mesh);
+		}
+	}
+}
+
+template<>
+void EntityRenderSystem::exe<4>(std::string exeCommand)
+{
+	int64_t id;
+	bool outline;
+	if (getBoolValue(exeCommand, id, outline))
+	{
+		if (auto entity = getEntity(id))
+		{
+			auto component = entity->getComponent<RenderComponent>();
+			if (component)
+				component->setOutline(outline);
+		}
+	}
+}
+
+template<>
+void EntityRenderSystem::exe<5>(std::string exeCommand)
+{
+	int64_t id;
+	std::vector<float> outlineColor;
+	if (getV3Value(exeCommand, id, outlineColor))
+	{
+		if (auto entity = getEntity(id))
+		{
+			auto component = entity->getComponent<RenderComponent>();
+			if (component)
+				component->setOutlineColor(Vector3(outlineColor[0], outlineColor[1], outlineColor[2]));
+		}
+	}
+}
+
+template<>
+void EntityRenderSystem::exe<6>(std::string exeCommand)
+{
+	int64_t id;
+	float outlineWidth;
+	if (getFloatValue(exeCommand, id, outlineWidth))
+	{
+		if (auto entity = getEntity(id))
+		{
+			auto component = entity->getComponent<RenderComponent>();
+			if (component)
+				component->setOutlineWidth(outlineWidth);
 		}
 	}
 }

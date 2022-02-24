@@ -40,6 +40,7 @@ struct RenderData
 	int textureSize = 0;
 	int uniformSize = 0;
 	int elementCount = 0;
+	int stencilRef = 0;
 	unsigned int VBO = 0;
 	unsigned int VAO = 0;
 	unsigned int EBO = 0;
@@ -116,7 +117,6 @@ public:
 	virtual void render();
 	virtual void loadData(RenderData* data);
 	RenderData* getRenderData(int64_t id);
-	void deleteRenderData(int64_t id);
 	void removeRenderData(int64_t id);
 	void removeDatas();
 protected:
@@ -125,5 +125,13 @@ protected:
 	GLenum m_face;
 	GLenum m_mode;
 	std::unordered_map<int64_t, RenderData*> m_renderDatas;
+};
+
+class OutlineRender:public Render
+{
+public:
+	virtual void render() override;
+private:
+
 };
 

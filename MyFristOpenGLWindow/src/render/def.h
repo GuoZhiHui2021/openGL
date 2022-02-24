@@ -1,6 +1,9 @@
 #pragma once
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+
+
+#define OUTLINE_STENCIL_MARK 0X1
 namespace _Shader
 {
 #define DEFAULT_Window_WIDTH 800

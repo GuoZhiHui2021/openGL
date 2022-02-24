@@ -2,40 +2,6 @@
 #include <common/fileUtil.h>
 #include <common/util.h>
 
-bool getV3Value(std::string str, int64_t& id, std::vector<float>& value)
-{
-	value.clear();
-	value.resize(3, 0);
-	auto strs = splitLevelStr(str.substr(1, str.length() - 2), ",");
-	if (strs.size() != 4)
-		return false;
-	int64_t t_id = 0;
-	std::vector<float> t_value(3, 0);
-	if (!strToInt64(strs[0].c_str(), t_id))
-		return false;
-	for (size_t i = 1; i < 4; i++)
-	{
-		if (!strToFloat(strs[i].c_str(), t_value[i - 1]))
-			return false;
-	}
-	id = t_id;
-	value.swap(t_value);
-	return true;
-}
-bool getFloatValue(std::string str, int64_t& id, float& value)
-{
-	auto strs = splitLevelStr(str.substr(1, str.length() - 2), ",");
-	if (strs.size() != 2)
-		return false;
-	int64_t t_id = 0;
-	float t_value = 0;
-	if (!strToInt64(strs[0].c_str(), t_id) || !strToFloat(strs[1].c_str(), t_value))
-		return false;
-	id = t_id;
-	value = t_value;
-	return true;
-}
-
 void LightSystem::execute_implement()
 {
 	for (size_t i = 0; i < m_commands.size(); i++)

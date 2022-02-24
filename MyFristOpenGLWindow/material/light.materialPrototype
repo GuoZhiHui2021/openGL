@@ -1,3 +1,4 @@
+renderType:default
 vertexShader:{VERTEX_SHADER,shader/light.vert}
 fragmentShader:{FRAGMENT_SHADER,shader/light.frag}
 

@@ -46,6 +46,11 @@ MaterialPrototype* MaterialManager::getOrCreateMaterialPrototype(std::string nam
         std::vector<std::string> k_v = splitStr(line, ":");
         if (k_v.size() != 2)
             return nullptr;
+        if (k_v[0] == "renderType")
+        {
+            prototype->setRenderType(k_v[1]);
+            continue;
+        }
         std::vector<std::string> paras = splitLevelStr(k_v[1].substr(1, k_v[1].length() - 2),",");
         if (paras.size() != 2)
             return nullptr;

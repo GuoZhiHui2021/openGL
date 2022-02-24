@@ -1,0 +1,4 @@
+renderType:outline
+vertexShader:{VERTEX_SHADER,shader/outline.vert}
+fragmentShader:{FRAGMENT_SHADER,shader/outline.frag}
+

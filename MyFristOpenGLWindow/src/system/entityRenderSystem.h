@@ -8,7 +8,10 @@ private:
     {
         _Visible = 1,
         _Material,
-        _Mesh
+        _Mesh,
+        _Outline,
+        _OutlineColor,
+        _OutlineWitdh
     };
 public:
     virtual int getOrder()
@@ -31,6 +34,12 @@ private:
     void exe<2>(std::string exeCommand);
     template<>
     void exe<3>(std::string exeCommand);
+    template<>
+    void exe<4>(std::string exeCommand);
+    template<>
+    void exe<5>(std::string exeCommand);
+    template<>
+    void exe<6>(std::string exeCommand);
 
     void updateRenderData(Entity* entity);
     void updateLightData(Entity* entity);

@@ -85,6 +85,9 @@ int main()
 		SystemManager::Instance()->pushSystemCommand(SystemCommand(6, 5, "{7,0.2f,0.2f,0.2f}"));
 		//SystemManager::Instance()->pushSystemCommand(SystemCommand(7, 2, "{7,material/phong.materialPrototype}"));
 		SystemManager::Instance()->pushSystemCommand(SystemCommand(7, 3, "{7,res/mesh/nanosuit/nanosuit.obj}"));
+		SystemManager::Instance()->pushSystemCommand(SystemCommand(7, 4, "{7,true}"));
+		SystemManager::Instance()->pushSystemCommand(SystemCommand(7, 5, "{7,0.2,0.3,0.5}"));
+		SystemManager::Instance()->pushSystemCommand(SystemCommand(7, 6, "{7,0.2}"));
 		//SystemManager::Instance()->pushSystemCommand(SystemCommand(6, 4, "{2,0.0f,45.0f,0.0f}"));
 		//SystemManager::Instance()->pushSystemCommand(SystemCommand(6, 5, "{2,1.0f,1.0f,1.0f}"));
 	/*	SystemManager::Instance()->pushSystemCommand(SystemCommand(7, 1, "{2,true}"));

@@ -1,5 +1,6 @@
 #pragma once
 #include "component.h"
+#include <common/coordinateType.h>
 #include <string>
 class MeshNodeInstance;
 class RenderComponent :
@@ -31,11 +32,38 @@ public:
     {
         return m_mesh;
     }
+    void setOutline(bool outline)
+    {
+        m_isOutline = outline;
+    }
+    bool getOutline()
+    {
+        return m_isOutline;
+    }
+    void setOutlineColor(Vector3 color)
+    {
+        m_outlineColor = color;
+    }
+    Vector3 getOutlineColor()
+    {
+        return m_outlineColor;
+    }
+    void setOutlineWidth(float width)
+    {
+        m_outlineWidth = width;
+    }
+    float getOutlineWidth()
+    {
+        return m_outlineWidth;
+    }
 private:
     bool m_visible;
     bool m_world_visible;
     std::string m_material;
     std::string m_mesh = "Box";
-    
+    bool m_isOutline = false;
+    Vector3 m_outlineColor = {1,1,1};
+    float m_outlineWidth = 1.0f;
+
 };
 

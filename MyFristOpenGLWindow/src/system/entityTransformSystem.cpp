@@ -4,26 +4,6 @@
 #include <common/util.h>
 #include <scene/transformComponent.h>
 #include <scene/world.h>
-bool getEntityTransformValue(std::string str,int64_t& id, std::vector<float>& value)
-{
-	value.clear();
-	value.resize(3, 0);
-	auto strs = splitLevelStr(str.substr(1, str.length() - 2), ",");
-	if (strs.size() != 4)
-		return false;
-	int64_t t_id = 0;
-	std::vector<float> t_value(3, 0);
-	if (!strToInt64(strs[0].c_str(), t_id))
-		return false;
-	for (size_t i = 1; i < 4; i++)
-	{
-		if (!strToFloat(strs[i].c_str(), t_value[i - 1]))
-			return false;
-	}
-	id = t_id;
-	value.swap(t_value);
-	return true;
-}
 
 void EntityTransformSystem::execute_implement()
 {
@@ -115,7 +95,7 @@ void EntityTransformSystem::exe<1>(std::string exeCommand)
 {
 	int64_t id = 0;
 	std::vector<float> value;
-	if (getEntityTransformValue(exeCommand, id, value))
+	if (getV3Value(exeCommand, id, value))
 	{
 		if (auto entity = getEntity(id))
 		{
@@ -131,7 +111,7 @@ void EntityTransformSystem::exe<2>(std::string exeCommand)
 {
 	int64_t id = 0;
 	std::vector<float> value;
-	if (getEntityTransformValue(exeCommand, id, value))
+	if (getV3Value(exeCommand, id, value))
 	{
 		if (auto entity = getEntity(id))
 		{
@@ -147,7 +127,7 @@ void EntityTransformSystem::exe<3>(std::string exeCommand)
 {
 	int64_t id = 0;
 	std::vector<float> value;
-	if (getEntityTransformValue(exeCommand, id, value))
+	if (getV3Value(exeCommand, id, value))
 	{
 		if (auto entity = getEntity(id))
 		{
@@ -169,7 +149,7 @@ void EntityTransformSystem::exe<4>(std::string exeCommand)
 {
 	int64_t id = 0;
 	std::vector<float> value;
-	if (getEntityTransformValue(exeCommand, id, value))
+	if (getV3Value(exeCommand, id, value))
 	{
 		if (auto entity = getEntity(id))
 		{
@@ -191,7 +171,7 @@ void EntityTransformSystem::exe<5>(std::string exeCommand)
 {
 	int64_t id = 0;
 	std::vector<float> value;
-	if (getEntityTransformValue(exeCommand, id, value))
+	if (getV3Value(exeCommand, id, value))
 	{
 		if (auto entity = getEntity(id))
 		{
