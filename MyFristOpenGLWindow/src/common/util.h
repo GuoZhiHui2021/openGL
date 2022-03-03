@@ -187,6 +187,16 @@ static bool strToInt(const char* src, int32_t& ret)
 	ret = i;
 	return true;
 }
+static bool strToUInt(const char* src, unsigned int& ret)
+{
+	std::string s(src);
+	removeHTSpaces(s);
+	if (!isInt(s.c_str()))
+		return false;
+	unsigned int i = std::strtoul(s.c_str(),NULL,10);
+	ret = i;
+	return true;
+}
 static bool strToInt64(const char* src, int64_t& ret)
 {
 	std::string s(src);
@@ -239,3 +249,5 @@ bool getIntValue(std::string str, int64_t& id, int& value);
 bool getIntV2Value(std::string str, int64_t& id, std::vector<int>& value);
 
 bool getV2Value(std::string str, int64_t& id, std::vector<float>& value);
+
+bool getUIntValue(std::string str, int64_t& id, unsigned int& value);

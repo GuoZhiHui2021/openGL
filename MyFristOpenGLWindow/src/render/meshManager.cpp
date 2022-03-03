@@ -13,7 +13,7 @@ MeshNodeInstance* MeshManager::getOrCreateMesh(std::string meshName)
         Mesh* mesh = new Mesh();
 
         const Vector3 boxPosition[8] = { Vector3(-0.5f,-0.5f,-0.5f),Vector3(0.5f,-0.5f,-0.5f),Vector3(-0.5f,0.5f,-0.5f),Vector3(0.5f,0.5f,-0.5f),Vector3(-0.5f,-0.5f,0.5f),Vector3(0.5f,-0.5f,0.5f),Vector3(-0.5f,0.5f,0.5f),Vector3(0.5f,0.5f,0.5f) };
-        const uint8_t boxIndices[36] = { 1,0,3,0,2,3,3,2,7,2,6,7,4,5,6,5,7,6,4,5,0,5,1,0,0,4,2,4,6,2,5,1,7,1,3,7 };
+        const uint8_t boxIndices[36] = { 1,0,3,0,2,3,3,2,7,2,6,7,4,5,6,5,7,6,0,1,4,1,5,4,0,4,2,4,6,2,5,1,7,1,3,7 };
         const float boxNormal[18] = { 0.0f,0.0f,-1.0f,0.0f,1.0f,0.0f,0.0f,0.0f,1.0f,0.0f,-1.0f,0.0f,-1.0f,0.0f,0.0f,1.0f,0.0f,0.0f };
         const float boxTexCoord[12] = { 0.0f,0.0f,1.0f,0.0f,0.0f,1.0f,1.0f,0.0f,1.0f,1.0f,0.0f,1.0f };
 
@@ -33,6 +33,25 @@ MeshNodeInstance* MeshManager::getOrCreateMesh(std::string meshName)
         }
 
         mesh->load(vertices, indices, textures, "material/phong.materialPrototype",1);
+        m_meshes.insert(std::make_pair(meshName, mesh));
+        return mesh;
+    }
+    else if (meshName == "Plane")
+    {
+        Mesh* mesh = new Mesh();
+        const Vector3 planePosition[4] = { Vector3(-0.5f,0,0.5f), Vector3(0.5f,0,0.5f), Vector3(-0.5f,0,-0.5f), Vector3(0.5f,0,-0.5f) };
+        const Vector2 planeTexCoord[4] = { Vector2(0.0f,0.0f), Vector2(1.0f,0.0f), Vector2(0.0f,1.0f), Vector2(1.0f,1.0f) };
+        std::vector<Vertex> vertices;
+        std::vector<unsigned int> indices = { 1,0,3,0,2,3 };
+        std::unordered_map<std::string, std::string> textures;
+        for (size_t i = 0; i < 4; i++)
+        {
+            vertices.emplace_back();
+            vertices.back().position = planePosition[i];
+            vertices.back().normal = Vector3(0, 1, 0);
+            vertices.back().texCoords[0] = planeTexCoord[i];
+        }
+        mesh->load(vertices, indices, textures, "material/phong.materialPrototype", 1);
         m_meshes.insert(std::make_pair(meshName, mesh));
         return mesh;
     }

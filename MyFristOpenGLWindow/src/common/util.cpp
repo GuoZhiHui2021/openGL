@@ -135,3 +135,17 @@ bool getV2Value(std::string str, int64_t& id, std::vector<float>& value)
 	return true;
 }
 
+bool getUIntValue(std::string str, int64_t& id, unsigned int& value)
+{
+	auto strs = splitLevelStr(str.substr(1, str.length() - 2), ",");
+	if (strs.size() != 2)
+		return false;
+	int64_t t_id = 0;
+	unsigned int t_value = 0;
+	if (!strToInt64(strs[0].c_str(), t_id) || !strToUInt(strs[1].c_str(), t_value))
+		return false;
+	id = t_id;
+	value = t_value;
+	return id > 0 && value > 0 && id != value;
+}
+

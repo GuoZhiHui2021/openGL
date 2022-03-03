@@ -41,6 +41,7 @@ struct RenderData
 	int uniformSize = 0;
 	int elementCount = 0;
 	int stencilRef = 0;
+	unsigned int cullFace = 0;
 	unsigned int VBO = 0;
 	unsigned int VAO = 0;
 	unsigned int EBO = 0;

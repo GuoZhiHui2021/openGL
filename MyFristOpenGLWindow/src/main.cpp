@@ -93,6 +93,16 @@ int main()
 	/*	SystemManager::Instance()->pushSystemCommand(SystemCommand(7, 1, "{2,true}"));
 		SystemManager::Instance()->pushSystemCommand(SystemCommand(7, 2, "{2,material/boxPhong.material}"));*/
 
+		//Plane
+		SystemManager::Instance()->pushSystemCommand(SystemCommand(3, 1, "8"));
+		SystemManager::Instance()->pushSystemCommand(SystemCommand(4, 1, "{8,1}"));
+		SystemManager::Instance()->pushSystemCommand(SystemCommand(4, 1, "{8,2}"));
+		//SystemManager::Instance()->pushSystemCommand(SystemCommand(6, 2, "{2,10.0f,10.0f,0.0f}"));
+		SystemManager::Instance()->pushSystemCommand(SystemCommand(6, 3, "{8,0.0f,-1.0f,3.0f}"));
+		SystemManager::Instance()->pushSystemCommand(SystemCommand(6, 4, "{8,90.0f,0.0f,0.0f}"));
+		//SystemManager::Instance()->pushSystemCommand(SystemCommand(7, 2, "{7,material/phong.materialPrototype}"));
+		SystemManager::Instance()->pushSystemCommand(SystemCommand(7, 3, "{8,Plane}"));
+
 		while (!glWindowShouldClose())
 		{
 			// ‰»Î

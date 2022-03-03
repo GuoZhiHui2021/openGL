@@ -209,7 +209,23 @@ void Render::render()
 		glPolygonMode(m_face, m_mode);
 		glStencilFunc(GL_ALWAYS, data->stencilRef, 0XFF);
 		glStencilMask(0XFF);
-			
+		if (data->cullFace)
+		{
+			glEnable(GL_CULL_FACE);
+			//glFrontFace(GL_CCW);
+			switch (data->cullFace)
+			{
+			default:
+				break;
+			case 1:glCullFace(GL_BACK); break;
+			case 2:glCullFace(GL_FRONT); break;
+			case 3:glCullFace(GL_FRONT_AND_BACK); break;
+			}
+		}
+		else
+		{
+			glDisable(GL_CULL_FACE);
+		}
 
 		glDrawElements(GL_TRIANGLES, data->elementCount, GL_UNSIGNED_INT, 0);
 	}

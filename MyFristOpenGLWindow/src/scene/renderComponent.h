@@ -56,6 +56,15 @@ public:
     {
         return m_outlineWidth;
     }
+    void setCullFace(unsigned int cullFace)
+    {
+        cullFace &= 0XF;
+        m_cullFace = cullFace;
+    }
+    unsigned int getCullFace()
+    {
+        return m_cullFace;
+    }
 private:
     bool m_visible;
     bool m_world_visible;
@@ -64,6 +73,7 @@ private:
     bool m_isOutline = false;
     Vector3 m_outlineColor = {1,1,1};
     float m_outlineWidth = 1.0f;
-
+    unsigned int m_cullFace = 1;
+    
 };
 

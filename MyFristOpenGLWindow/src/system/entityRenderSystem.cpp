@@ -111,7 +111,7 @@ void EntityRenderSystem::updateRenderData(Entity* entity)
 
 				renderData->stencilRef |= OUTLINE_STENCIL_MARK;
 			}
-
+			renderData->cullFace = r_component->getCullFace();
 
 			RenderManager::Instance()->updateRenderData(renderData);
 		}
@@ -325,6 +325,22 @@ void EntityRenderSystem::exe<6>(std::string exeCommand)
 			auto component = entity->getComponent<RenderComponent>();
 			if (component)
 				component->setOutlineWidth(outlineWidth);
+		}
+	}
+}
+
+template<>
+void EntityRenderSystem::exe<7>(std::string exeCommand)
+{
+	int64_t id;
+	unsigned int cullFace;
+	if (getUIntValue(exeCommand, id, cullFace))
+	{
+		if (auto entity = getEntity(id))
+		{
+			auto component = entity->getComponent<RenderComponent>();
+			if (component)
+				component->setCullFace(cullFace);
 		}
 	}
 }
